@@ -2092,7 +2092,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Header'
+  name: 'Header',
+  data: function data() {
+    return {
+      currentUser: {},
+      token: localStorage.getItem('token')
+    };
+  },
+  methods: {
+    logout: function logout() {
+      var _this = this;
+
+      axios.post('api/logout').then(function (response) {
+        localStorage.removeItem('token');
+
+        _this.$router.push('/login');
+      })["catch"](function (errors) {
+        console.log(errors);
+      });
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    window.axios.defaults.headers.common['Authorization'] = "Bearer ".concat(this.token);
+    axios.get('api/user').then(function (response) {
+      _this2.currentUser = response.data;
+    })["catch"](function (errors) {
+      console.log(errors);
+    });
+  }
 });
 
 /***/ }),
@@ -2268,7 +2297,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      formData: {
+        email: '',
+        password: '',
+        device_name: 'browser'
+      },
+      errors: {}
+    };
+  },
+  methods: {
+    login: function login() {
+      var _this = this;
+
+      axios.post('api/login', this.formData).then(function (response) {
+        localStorage.setItem('token', response.data);
+
+        _this.$router.push('/app');
+      })["catch"](function (errors) {
+        _this.errors = errors.response.data.errors;
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -2503,6 +2566,38 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+
+function loggedIn() {
+  return localStorage.getItem('token');
+}
+
+_router_index__WEBPACK_IMPORTED_MODULE_0__.default.beforeEach(function (to, from, next) {
+  if (to.matched.some(function (record) {
+    return record.meta.requiresAuth;
+  })) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!loggedIn()) {
+      next({
+        path: '/login'
+      });
+    } else {
+      next();
+    }
+  } else if (to.matched.some(function (record) {
+    return record.meta.guest;
+  })) {
+    if (loggedIn()) {
+      next({
+        path: '/app'
+      });
+    } else {
+      next();
+    }
+  } else {
+    next(); // make sure to always call next()!
+  }
+});
 var app = new vue__WEBPACK_IMPORTED_MODULE_1__.default({
   el: '#app',
   router: _router_index__WEBPACK_IMPORTED_MODULE_0__.default
@@ -2518,6 +2613,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1__.default({
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+axios.defaults.withCredentials = true;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
@@ -2549,14 +2645,23 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_4__.default({
   routes: [{
     path: '/app',
     component: _App_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    name: _App_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    name: _App_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/login',
-    component: _components_auth_Login_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    component: _components_auth_Login_vue__WEBPACK_IMPORTED_MODULE_2__.default,
+    meta: {
+      guest: true
+    }
   }, {
     path: '/create',
     component: _pages_Create_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    name: _pages_Create_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    name: _pages_Create_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    meta: {
+      requiresAuth: true
+    }
   }]
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (routes);
@@ -20396,7 +20501,56 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "nav",
+    {
+      staticClass:
+        "navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+    },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _vm._m(4),
+        _vm._v(" "),
+        _c("div", { staticClass: "topbar-divider d-none d-sm-block" }),
+        _vm._v(" "),
+        _c("li", { staticClass: "nav-item dropdown no-arrow" }, [
+          _vm._m(5),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "dropdown-menu dropdown-menu-right shadow animated--grow-in",
+              attrs: { "aria-labelledby": "userDropdown" }
+            },
+            [
+              _vm._m(6),
+              _vm._v(" "),
+              _vm._m(7),
+              _vm._v(" "),
+              _vm._m(8),
+              _vm._v(" "),
+              _c("div", { staticClass: "dropdown-divider" }),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-danger", on: { click: _vm.logout } },
+                [_vm._v("Logout")]
+              )
+            ]
+          )
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -20404,511 +20558,469 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "nav",
+      "button",
+      {
+        staticClass: "btn btn-link d-md-none rounded-circle mr-3",
+        attrs: { id: "sidebarToggleTop" }
+      },
+      [_c("i", { staticClass: "fa fa-bars" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "form",
       {
         staticClass:
-          "navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+          "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
       },
       [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-link d-md-none rounded-circle mr-3",
-            attrs: { id: "sidebarToggleTop" }
-          },
-          [_c("i", { staticClass: "fa fa-bars" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "form",
-          {
-            staticClass:
-              "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-          },
-          [
-            _c("div", { staticClass: "input-group" }, [
-              _c("input", {
-                staticClass: "form-control bg-light border-0 small",
-                attrs: {
-                  type: "text",
-                  placeholder: "Search for...",
-                  "aria-label": "Search",
-                  "aria-describedby": "basic-addon2"
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group-append" }, [
-                _c(
-                  "button",
-                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                  [_c("i", { staticClass: "fas fa-search fa-sm" })]
-                )
-              ])
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-          _c("li", { staticClass: "nav-item dropdown no-arrow d-sm-none" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link dropdown-toggle",
-                attrs: {
-                  href: "#",
-                  id: "searchDropdown",
-                  role: "button",
-                  "data-toggle": "dropdown",
-                  "aria-haspopup": "true",
-                  "aria-expanded": "false"
-                }
-              },
-              [_c("i", { staticClass: "fas fa-search fa-fw" })]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in",
-                attrs: { "aria-labelledby": "searchDropdown" }
-              },
-              [
-                _c(
-                  "form",
-                  { staticClass: "form-inline mr-auto w-100 navbar-search" },
-                  [
-                    _c("div", { staticClass: "input-group" }, [
-                      _c("input", {
-                        staticClass: "form-control bg-light border-0 small",
-                        attrs: {
-                          type: "text",
-                          placeholder: "Search for...",
-                          "aria-label": "Search",
-                          "aria-describedby": "basic-addon2"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "input-group-append" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-primary",
-                            attrs: { type: "button" }
-                          },
-                          [_c("i", { staticClass: "fas fa-search fa-sm" })]
-                        )
-                      ])
-                    ])
-                  ]
-                )
-              ]
-            )
-          ]),
+        _c("div", { staticClass: "input-group" }, [
+          _c("input", {
+            staticClass: "form-control bg-light border-0 small",
+            attrs: {
+              type: "text",
+              placeholder: "Search for...",
+              "aria-label": "Search",
+              "aria-describedby": "basic-addon2"
+            }
+          }),
           _vm._v(" "),
-          _c("li", { staticClass: "nav-item dropdown no-arrow mx-1" }, [
+          _c("div", { staticClass: "input-group-append" }, [
             _c(
-              "a",
-              {
-                staticClass: "nav-link dropdown-toggle",
-                attrs: {
-                  href: "#",
-                  id: "alertsDropdown",
-                  role: "button",
-                  "data-toggle": "dropdown",
-                  "aria-haspopup": "true",
-                  "aria-expanded": "false"
-                }
-              },
-              [
-                _c("i", { staticClass: "fas fa-bell fa-fw" }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  { staticClass: "badge badge-danger badge-counter" },
-                  [_vm._v("3+")]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in",
-                attrs: { "aria-labelledby": "alertsDropdown" }
-              },
-              [
-                _c("h6", { staticClass: "dropdown-header" }, [
-                  _vm._v(
-                    "\n                    Alerts Center\n                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item d-flex align-items-center",
-                    attrs: { href: "#" }
-                  },
-                  [
-                    _c("div", { staticClass: "mr-3" }, [
-                      _c("div", { staticClass: "icon-circle bg-primary" }, [
-                        _c("i", { staticClass: "fas fa-file-alt text-white" })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("div", { staticClass: "small text-gray-500" }, [
-                        _vm._v("December 12, 2019")
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "font-weight-bold" }, [
-                        _vm._v("A new monthly report is ready to download!")
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item d-flex align-items-center",
-                    attrs: { href: "#" }
-                  },
-                  [
-                    _c("div", { staticClass: "mr-3" }, [
-                      _c("div", { staticClass: "icon-circle bg-success" }, [
-                        _c("i", { staticClass: "fas fa-donate text-white" })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("div", { staticClass: "small text-gray-500" }, [
-                        _vm._v("December 7, 2019")
-                      ]),
-                      _vm._v(
-                        "\n                        $290.29 has been deposited into your account!\n                    "
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item d-flex align-items-center",
-                    attrs: { href: "#" }
-                  },
-                  [
-                    _c("div", { staticClass: "mr-3" }, [
-                      _c("div", { staticClass: "icon-circle bg-warning" }, [
-                        _c("i", {
-                          staticClass: "fas fa-exclamation-triangle text-white"
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("div", { staticClass: "small text-gray-500" }, [
-                        _vm._v("December 2, 2019")
-                      ]),
-                      _vm._v(
-                        "\n                        Spending Alert: We've noticed unusually high spending for your account.\n                    "
-                      )
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "dropdown-item text-center small text-gray-500",
-                    attrs: { href: "#" }
-                  },
-                  [_vm._v("Show All Alerts")]
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item dropdown no-arrow mx-1" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link dropdown-toggle",
-                attrs: {
-                  href: "#",
-                  id: "messagesDropdown",
-                  role: "button",
-                  "data-toggle": "dropdown",
-                  "aria-haspopup": "true",
-                  "aria-expanded": "false"
-                }
-              },
-              [
-                _c("i", { staticClass: "fas fa-envelope fa-fw" }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  { staticClass: "badge badge-danger badge-counter" },
-                  [_vm._v("7")]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in",
-                attrs: { "aria-labelledby": "messagesDropdown" }
-              },
-              [
-                _c("h6", { staticClass: "dropdown-header" }, [
-                  _vm._v(
-                    "\n                    Message Center\n                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item d-flex align-items-center",
-                    attrs: { href: "#" }
-                  },
-                  [
-                    _c("div", { staticClass: "dropdown-list-image mr-3" }, [
-                      _c("img", {
-                        staticClass: "rounded-circle",
-                        attrs: { src: "img/undraw_profile_1.svg", alt: "..." }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "status-indicator bg-success" })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "font-weight-bold" }, [
-                      _c("div", { staticClass: "text-truncate" }, [
-                        _vm._v(
-                          "Hi there! I am wondering if you can help me with a\n                            problem I've been having."
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "small text-gray-500" }, [
-                        _vm._v("Emily Fowler · 58m")
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item d-flex align-items-center",
-                    attrs: { href: "#" }
-                  },
-                  [
-                    _c("div", { staticClass: "dropdown-list-image mr-3" }, [
-                      _c("img", {
-                        staticClass: "rounded-circle",
-                        attrs: { src: "img/undraw_profile_2.svg", alt: "..." }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "status-indicator" })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("div", { staticClass: "text-truncate" }, [
-                        _vm._v(
-                          "I have the photos that you ordered last month, how\n                            would you like them sent to you?"
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "small text-gray-500" }, [
-                        _vm._v("Jae Chun · 1d")
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item d-flex align-items-center",
-                    attrs: { href: "#" }
-                  },
-                  [
-                    _c("div", { staticClass: "dropdown-list-image mr-3" }, [
-                      _c("img", {
-                        staticClass: "rounded-circle",
-                        attrs: { src: "img/undraw_profile_3.svg", alt: "..." }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "status-indicator bg-warning" })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("div", { staticClass: "text-truncate" }, [
-                        _vm._v(
-                          "Last month's report looks great, I am very happy with\n                            the progress so far, keep up the good work!"
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "small text-gray-500" }, [
-                        _vm._v("Morgan Alvarez · 2d")
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item d-flex align-items-center",
-                    attrs: { href: "#" }
-                  },
-                  [
-                    _c("div", { staticClass: "dropdown-list-image mr-3" }, [
-                      _c("img", {
-                        staticClass: "rounded-circle",
-                        attrs: {
-                          src: "https://source.unsplash.com/Mv9hjnEUHR4/60x60",
-                          alt: "..."
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "status-indicator bg-success" })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("div", { staticClass: "text-truncate" }, [
-                        _vm._v(
-                          "Am I a good boy? The reason I ask is because someone\n                            told me that people say this to all dogs, even if they aren't good..."
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "small text-gray-500" }, [
-                        _vm._v("Chicken the Dog · 2w")
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "dropdown-item text-center small text-gray-500",
-                    attrs: { href: "#" }
-                  },
-                  [_vm._v("Read More Messages")]
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "topbar-divider d-none d-sm-block" }),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item dropdown no-arrow" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link dropdown-toggle",
-                attrs: {
-                  href: "#",
-                  id: "userDropdown",
-                  role: "button",
-                  "data-toggle": "dropdown",
-                  "aria-haspopup": "true",
-                  "aria-expanded": "false"
-                }
-              },
-              [
-                _c(
-                  "span",
-                  {
-                    staticClass: "mr-2 d-none d-lg-inline text-gray-600 small"
-                  },
-                  [_vm._v("Douglas McGee")]
-                ),
-                _vm._v(" "),
-                _c("img", {
-                  staticClass: "img-profile rounded-circle",
-                  attrs: { src: "img/undraw_profile.svg" }
-                })
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "dropdown-menu dropdown-menu-right shadow animated--grow-in",
-                attrs: { "aria-labelledby": "userDropdown" }
-              },
-              [
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("i", {
-                      staticClass: "fas fa-user fa-sm fa-fw mr-2 text-gray-400"
-                    }),
-                    _vm._v("\n                    Profile\n                ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("i", {
-                      staticClass: "fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"
-                    }),
-                    _vm._v("\n                    Settings\n                ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("i", {
-                      staticClass: "fas fa-list fa-sm fa-fw mr-2 text-gray-400"
-                    }),
-                    _vm._v(
-                      "\n                    Activity Log\n                "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item",
-                    attrs: {
-                      href: "#",
-                      "data-toggle": "modal",
-                      "data-target": "#logoutModal"
-                    }
-                  },
-                  [
-                    _c("i", {
-                      staticClass:
-                        "fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
-                    }),
-                    _vm._v("\n                    Logout\n                ")
-                  ]
-                )
-              ]
+              "button",
+              { staticClass: "btn btn-primary", attrs: { type: "button" } },
+              [_c("i", { staticClass: "fas fa-search fa-sm" })]
             )
           ])
         ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item dropdown no-arrow d-sm-none" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link dropdown-toggle",
+          attrs: {
+            href: "#",
+            id: "searchDropdown",
+            role: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        },
+        [_c("i", { staticClass: "fas fa-search fa-fw" })]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in",
+          attrs: { "aria-labelledby": "searchDropdown" }
+        },
+        [
+          _c(
+            "form",
+            { staticClass: "form-inline mr-auto w-100 navbar-search" },
+            [
+              _c("div", { staticClass: "input-group" }, [
+                _c("input", {
+                  staticClass: "form-control bg-light border-0 small",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Search for...",
+                    "aria-label": "Search",
+                    "aria-describedby": "basic-addon2"
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-group-append" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "button" }
+                    },
+                    [_c("i", { staticClass: "fas fa-search fa-sm" })]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item dropdown no-arrow mx-1" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link dropdown-toggle",
+          attrs: {
+            href: "#",
+            id: "alertsDropdown",
+            role: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        },
+        [
+          _c("i", { staticClass: "fas fa-bell fa-fw" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "badge badge-danger badge-counter" }, [
+            _vm._v("3+")
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in",
+          attrs: { "aria-labelledby": "alertsDropdown" }
+        },
+        [
+          _c("h6", { staticClass: "dropdown-header" }, [
+            _vm._v(
+              "\n                        Alerts Center\n                    "
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item d-flex align-items-center",
+              attrs: { href: "#" }
+            },
+            [
+              _c("div", { staticClass: "mr-3" }, [
+                _c("div", { staticClass: "icon-circle bg-primary" }, [
+                  _c("i", { staticClass: "fas fa-file-alt text-white" })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "small text-gray-500" }, [
+                  _vm._v("December 12, 2019")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "font-weight-bold" }, [
+                  _vm._v("A new monthly report is ready to download!")
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item d-flex align-items-center",
+              attrs: { href: "#" }
+            },
+            [
+              _c("div", { staticClass: "mr-3" }, [
+                _c("div", { staticClass: "icon-circle bg-success" }, [
+                  _c("i", { staticClass: "fas fa-donate text-white" })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "small text-gray-500" }, [
+                  _vm._v("December 7, 2019")
+                ]),
+                _vm._v(
+                  "\n                            $290.29 has been deposited into your account!\n                        "
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item d-flex align-items-center",
+              attrs: { href: "#" }
+            },
+            [
+              _c("div", { staticClass: "mr-3" }, [
+                _c("div", { staticClass: "icon-circle bg-warning" }, [
+                  _c("i", {
+                    staticClass: "fas fa-exclamation-triangle text-white"
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "small text-gray-500" }, [
+                  _vm._v("December 2, 2019")
+                ]),
+                _vm._v(
+                  "\n                            Spending Alert: We've noticed unusually high spending for your account.\n                        "
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item text-center small text-gray-500",
+              attrs: { href: "#" }
+            },
+            [_vm._v("Show All Alerts")]
+          )
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item dropdown no-arrow mx-1" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link dropdown-toggle",
+          attrs: {
+            href: "#",
+            id: "messagesDropdown",
+            role: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false"
+          }
+        },
+        [
+          _c("i", { staticClass: "fas fa-envelope fa-fw" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "badge badge-danger badge-counter" }, [
+            _vm._v("7")
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in",
+          attrs: { "aria-labelledby": "messagesDropdown" }
+        },
+        [
+          _c("h6", { staticClass: "dropdown-header" }, [
+            _vm._v(
+              "\n                        Message Center\n                    "
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item d-flex align-items-center",
+              attrs: { href: "#" }
+            },
+            [
+              _c("div", { staticClass: "dropdown-list-image mr-3" }, [
+                _c("img", {
+                  staticClass: "rounded-circle",
+                  attrs: { src: "img/undraw_profile_1.svg", alt: "..." }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "status-indicator bg-success" })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "font-weight-bold" }, [
+                _c("div", { staticClass: "text-truncate" }, [
+                  _vm._v(
+                    "Hi there! I am wondering if you can help me with a\n                                problem I've been having."
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "small text-gray-500" }, [
+                  _vm._v("Emily Fowler · 58m")
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item d-flex align-items-center",
+              attrs: { href: "#" }
+            },
+            [
+              _c("div", { staticClass: "dropdown-list-image mr-3" }, [
+                _c("img", {
+                  staticClass: "rounded-circle",
+                  attrs: { src: "img/undraw_profile_2.svg", alt: "..." }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "status-indicator" })
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "text-truncate" }, [
+                  _vm._v(
+                    "I have the photos that you ordered last month, how\n                                would you like them sent to you?"
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "small text-gray-500" }, [
+                  _vm._v("Jae Chun · 1d")
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item d-flex align-items-center",
+              attrs: { href: "#" }
+            },
+            [
+              _c("div", { staticClass: "dropdown-list-image mr-3" }, [
+                _c("img", {
+                  staticClass: "rounded-circle",
+                  attrs: { src: "img/undraw_profile_3.svg", alt: "..." }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "status-indicator bg-warning" })
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "text-truncate" }, [
+                  _vm._v(
+                    "Last month's report looks great, I am very happy with\n                                the progress so far, keep up the good work!"
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "small text-gray-500" }, [
+                  _vm._v("Morgan Alvarez · 2d")
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item d-flex align-items-center",
+              attrs: { href: "#" }
+            },
+            [
+              _c("div", { staticClass: "dropdown-list-image mr-3" }, [
+                _c("img", {
+                  staticClass: "rounded-circle",
+                  attrs: {
+                    src: "https://source.unsplash.com/Mv9hjnEUHR4/60x60",
+                    alt: "..."
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "status-indicator bg-success" })
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "text-truncate" }, [
+                  _vm._v(
+                    "Am I a good boy? The reason I ask is because someone\n                                told me that people say this to all dogs, even if they aren't good..."
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "small text-gray-500" }, [
+                  _vm._v("Chicken the Dog · 2w")
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item text-center small text-gray-500",
+              attrs: { href: "#" }
+            },
+            [_vm._v("Read More Messages")]
+          )
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "nav-link dropdown-toggle",
+        attrs: {
+          href: "#",
+          id: "userDropdown",
+          role: "button",
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [
+        _c(
+          "span",
+          { staticClass: "mr-2 d-none d-lg-inline text-gray-600 small" },
+          [_vm._v("Douglas McGee")]
+        ),
+        _vm._v(" "),
+        _c("img", {
+          staticClass: "img-profile rounded-circle",
+          attrs: { src: "img/undraw_profile.svg" }
+        })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-user fa-sm fa-fw mr-2 text-gray-400" }),
+      _vm._v("\n                        Profile\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-cogs fa-sm fa-fw mr-2 text-gray-400" }),
+      _vm._v("\n                        Settings\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-list fa-sm fa-fw mr-2 text-gray-400" }),
+      _vm._v("\n                        Activity Log\n                    ")
+    ])
   }
 ]
 render._withStripped = true
@@ -21326,34 +21438,117 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6 offset-md-3" }, [
+          _c("div", { staticClass: "card" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "form",
+                {
+                  attrs: { action: "" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.login.apply(null, arguments)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "email" } }, [_vm._v("Name")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.email,
+                          expression: "formData.email"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "email",
+                        placeholder: "email"
+                      },
+                      domProps: { value: _vm.formData.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.formData, "email", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "password" } }, [
+                      _vm._v("Password")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.password,
+                          expression: "formData.password"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "password", name: "password" },
+                      domProps: { value: _vm.formData.password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formData,
+                            "password",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1)
+                ]
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "com-md-6 offset-md-3" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-body" }, [
-                _c("form", { attrs: { action: "" } }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "" } }, [_vm._v("Name")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "text", name: "name", placeholder: "Name" }
-                    })
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h6", [_vm._v("Admin Login")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Login")]
+      )
     ])
   }
 ]

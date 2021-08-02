@@ -12,16 +12,19 @@ const routes = new VueRouter({
         {
             path:'/app',
             component: Welcome,
-            name: Welcome
+            name: Welcome,
+            meta: {requiresAuth: true}
         }, 
         {
             path:'/login',
-            component:Login
+            component:Login,
+            meta: {guest: true}
         }, 
         {
             path:'/create',
             component: Create,
-            name: Create
+            name: Create,
+            meta: {requiresAuth: true}
         }, 
 
     ]
