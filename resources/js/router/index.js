@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Welcome from '../App.vue'
-import Create from '../pages/Create.vue'; 
+import Welcome from '../App.vue';
 import Login from '../components/auth/Login.vue'; 
+import CreateCategory from '../pages/category/create.vue';
+import CategoryList from '../pages/category/CategoryList.vue'; 
+
 
 Vue.use(VueRouter);
 
@@ -22,8 +24,14 @@ const routes = new VueRouter({
         }, 
         {
             path:'/create',
-            component: Create,
-            name: Create,
+            component: CreateCategory,
+            name: "create-category",
+            meta: {requiresAuth: true}
+        }, 
+        {
+            path:'/category-list',
+            component: CategoryList,
+            name: "category-list",
             meta: {requiresAuth: true}
         }, 
 
