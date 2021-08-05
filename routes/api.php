@@ -22,6 +22,10 @@ Route::middleware( ['auth:sanctum'] )->group( function () {
     } );
     Route::post( '/add-category', [CategoryController::class, 'addCategory'] )->name( 'category.add' );
     Route::get( '/category-list', [CategoryController::class, 'categoryList'] )->name( 'category.list' );
+    Route::get( 'edit/{id}', [CategoryController::class, 'categoryEdit'] )->name( 'category.edit' );
+    Route::patch( 'update/{id}', [CategoryController::class, 'categoryUpdate'] )->name( 'category.update' );
+    Route::delete( 'delete/{id}', [CategoryController::class, 'categoryDelete'] )->name( 'category.delete' );
+
 } );
 
 Route::post( 'login', [LoginController::class, 'login'] )->name( 'login' );

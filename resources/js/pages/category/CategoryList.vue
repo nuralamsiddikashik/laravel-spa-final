@@ -32,8 +32,16 @@
 											<td>{{category.id}}</td>
 											<td>{{category.cat_name}}</td>
 											<td>{{category.slug}}</td>
-											<td>Ashik</td>
-											<td>Ashik</td>
+											<td>
+												<router-link
+													:to="{name: 'edit-category', params: {id: category.id}}"
+													class="btn btn-success"
+												>Edit</router-link>
+											</td>
+											<a
+												@click="deleteCategory(category.id)"
+												class="btn btn-danger"
+											>Delete</a>
 										</tr>
 									</tbody>
 								</table>
@@ -61,6 +69,12 @@ export default {
 		};
 	},
 	methods: {
+		deleteCategory(id) {
+			axios.delete("/api/delete/" + id).then(response => {
+				this.loadCategories();
+				console.log(response);
+			});
+		},
 		loadCategories() {
 			axios.get("/api/category-list").then(response => {
 				this.categoriesList = response.data;
