@@ -6,18 +6,19 @@ import CreateCategory from '../pages/category/create.vue';
 import CategoryList from '../pages/category/CategoryList.vue'; 
 import EditCategory from '../pages/category/EditCategory.vue';
 
+// Fronted Component Load 
+
+import PublicHome from '../fronted/PublicHome.vue';
+import AboutPages from '../fronted/pages/About/About.vue';
+
 
 Vue.use(VueRouter);
 
 const routes = new VueRouter({
     mode:'history',
     routes:[
-        {
-            path:'/app',
-            component: Welcome,
-            name: Welcome,
-            meta: {requiresAuth: true}
-        }, 
+
+     
         {
             path:'/login',
             component:Login,
@@ -41,6 +42,25 @@ const routes = new VueRouter({
             name: "edit-category",
             meta: {requiresAuth: true}
         }, 
+    // Fronted Route 
+
+    {
+        path:"/",
+        component:PublicHome
+    },
+    {
+        path:"/about",
+        component:AboutPages,
+        name:'about', 
+    },
+
+    {
+        path:'/app',
+        component: Welcome,
+        name: Welcome,
+        meta: {requiresAuth: true}
+    }, 
+       
 
     ]
 });

@@ -26,10 +26,10 @@
 									</thead>
 									<tbody>
 										<tr
-											v-for="category in categoriesList"
-											:key='category.id'
+											v-for="(category,index) in categoriesList"
+											:key="index"
 										>
-											<td>{{category.id}}</td>
+											<td>{{++index}}</td>
 											<td>{{category.cat_name}}</td>
 											<td>{{category.slug}}</td>
 											<td>
@@ -38,10 +38,10 @@
 													class="btn btn-success"
 												>Edit</router-link>
 											</td>
-											<a
-												@click="deleteCategory(category.id)"
-												class="btn btn-danger"
-											>Delete</a>
+											<td><a
+													@click="deleteCategory(category.id)"
+													class="btn btn-danger"
+												>Delete</a></td>
 										</tr>
 									</tbody>
 								</table>
