@@ -15,3 +15,5 @@ mix.js('resources/js/app.js', 'public/js').vue()
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);
+
+mix.js('resources/js/app2.js', 'public/js/app2.js').vue()

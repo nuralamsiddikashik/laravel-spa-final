@@ -2,7 +2,6 @@ require('./bootstrap');
 import Vue from 'vue';
 import routes from './router/index';
 
-Vue.component('home-main', require('./fronted/PublicMaster.vue').default);
 
 function loggedIn(){
     return localStorage.getItem('token')
