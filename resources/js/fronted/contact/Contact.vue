@@ -17,10 +17,9 @@
 								</div>
 								<div id="form-messages"></div>
 								<form
-									id="contact-form"
 									class="contact-form"
-									method="post"
-									action="https://rstheme.com/products/html/reobiz/mailer.php"
+									method="POST"
+									@submit.prevent="createContact()"
 								>
 									<div class="row">
 										<div class="col-md-6 mb-30">
@@ -29,7 +28,7 @@
 													type="text"
 													name="name"
 													placeholder="Name"
-													required=""
+													v-model="formData.name"
 												>
 											</div>
 										</div>
@@ -39,7 +38,7 @@
 													type="email"
 													name="email"
 													placeholder="Email"
-													required=""
+													v-model="formData.email"
 												>
 											</div>
 										</div>
@@ -49,7 +48,7 @@
 													type="text"
 													name="phone"
 													placeholder="Phone Number"
-													required=""
+													v-model="formData.phone"
 												>
 											</div>
 										</div>
@@ -59,7 +58,7 @@
 													type="text"
 													name="website"
 													placeholder="Your Website"
-													required=""
+													v-model="formData.website"
 												>
 											</div>
 										</div>
@@ -68,7 +67,7 @@
 												<textarea
 													name="message"
 													placeholder="Your Message Here"
-													required=""
+													v-model="formData.message"
 												></textarea>
 											</div>
 										</div>
@@ -144,6 +143,37 @@ export default {
 	components: {
 		Header,
 		Footer
+	},
+	data() {
+		return {
+			formData: {
+				name: "",
+				email: "",
+				phone: "",
+				website: "",
+				message: ""
+			}
+		};
+	},
+	methods: {
+		createContact() {
+			axios.post("/api/add-contact", this.formData).then(response => {
+				this.resetContact();
+				this.$toast.success({
+					title: "Success",
+					message: "Thank you contact submit"
+				});
+			});
+		},
+		resetContact() {
+			this.formData = {
+				name: "",
+				email: "",
+				phone: "",
+				website: "",
+				message: ""
+			};
+		}
 	}
 };
 </script>

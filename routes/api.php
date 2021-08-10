@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,3 +31,6 @@ Route::middleware( ['auth:sanctum'] )->group( function () {
 
 Route::post( 'login', [LoginController::class, 'login'] )->name( 'login' );
 Route::post( 'logout', [LoginController::class, 'logout'] )->middleware( 'auth:sanctum' );
+
+// Public Controller
+Route::post( '/add-contact', [ContactController::class, 'addContact'] )->name( 'add.contact' );
