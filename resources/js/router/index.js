@@ -20,7 +20,7 @@ const routes = new VueRouter({
     routes:[
      
         {
-            path:'/login',
+            path:'/app/login',
             component:Login,
             meta: {guest: true}
         }, 
@@ -31,25 +31,25 @@ const routes = new VueRouter({
             meta: {requiresAuth: true}
         }, 
         {
-            path:'/create',
+            path:'/app/create',
             component: CreateCategory,
             name: "create-category",
             meta: {requiresAuth: true}
         }, 
         {
-            path:'/category-list',
+            path:'/app/category-list',
             component: CategoryList,
             name: "category-list",
             meta: {requiresAuth: true}
         }, 
         {
-            path:'/edit/:id',
+            path:'/app/edit/:id',
             component: EditCategory,
             name: "edit-category",
             meta: {requiresAuth: true}
         }, 
         {
-            path:'/add-service',
+            path:'/app/add-service',
             component: CreatService,
             name: "add-service",
             meta: {requiresAuth: true}

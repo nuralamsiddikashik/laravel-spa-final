@@ -39512,7 +39512,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cxlt_vue2_toastr_dist_css_cxlt_vue2_toastr_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css */ "./node_modules/cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+ // Use to route for frontend 
 
+ // Use to vue-toastr alert 
 
 
 

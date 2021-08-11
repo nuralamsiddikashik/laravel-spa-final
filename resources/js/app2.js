@@ -1,6 +1,9 @@
 require('./bootstrap');
 import Vue from 'vue';
+// Use to route for frontend 
 import routes from './front-route/index';
+
+// Use to vue-toastr alert 
 import CxltToastr from 'cxlt-vue2-toastr'
 import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css'
 var toastrConfigs = {

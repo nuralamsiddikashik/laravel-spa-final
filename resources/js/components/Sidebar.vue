@@ -63,11 +63,11 @@
 					<h6 class="collapse-header">Custom Components:</h6>
 					<router-link
 						class="collapse-item"
-						to="/create"
+						to="/app/create"
 					>Create</router-link>
 					<router-link
 						class="collapse-item"
-						to="/category-list"
+						to="/app/category-list"
 					>Category List</router-link>
 				</div>
 			</div>
@@ -95,7 +95,7 @@
 					<h6 class="collapse-header">Service Components:</h6>
 					<router-link
 						class="collapse-item"
-						to="/add-service"
+						to="/app/add-service"
 					>Service</router-link>
 
 				</div>

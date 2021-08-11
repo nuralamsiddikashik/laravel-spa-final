@@ -22,18 +22,18 @@ Route::middleware( ['auth:sanctum'] )->group( function () {
     Route::get( '/user', function ( Request $request ) {
         return $request->user();
     } );
-    Route::post( '/add-category', [CategoryController::class, 'addCategory'] )->name( 'category.add' );
-    Route::get( '/category-list', [CategoryController::class, 'categoryList'] )->name( 'category.list' );
-    Route::get( 'edit/{id}', [CategoryController::class, 'categoryEdit'] )->name( 'category.edit' );
-    Route::patch( 'update/{id}', [CategoryController::class, 'categoryUpdate'] )->name( 'category.update' );
-    Route::delete( 'delete/{id}', [CategoryController::class, 'categoryDelete'] )->name( 'category.delete' );
+    Route::post( '/app/add-category', [CategoryController::class, 'addCategory'] )->name( 'category.add' );
+    Route::get( '/app/category-list', [CategoryController::class, 'categoryList'] )->name( 'category.list' );
+    Route::get( '/app/edit/{id}', [CategoryController::class, 'categoryEdit'] )->name( 'category.edit' );
+    Route::patch( '/app/update/{id}', [CategoryController::class, 'categoryUpdate'] )->name( 'category.update' );
+    Route::delete( '/app/delete/{id}', [CategoryController::class, 'categoryDelete'] )->name( 'category.delete' );
 
     // Service Route
-    Route::post( '/add-service', [FserviceController::class, 'addToService'] )->name( 'service.add' );
+    Route::post( '/app/add-service', [FserviceController::class, 'addToService'] )->name( 'service.add' );
 
 } );
 
-Route::post( 'login', [LoginController::class, 'login'] )->name( 'login' );
+Route::post( '/app/login', [LoginController::class, 'login'] )->name( 'login' );
 Route::post( 'logout', [LoginController::class, 'logout'] )->middleware( 'auth:sanctum' );
 
 // Public Controller

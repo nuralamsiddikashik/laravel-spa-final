@@ -58,10 +58,10 @@ export default {
 		updateCategory() {
 			let id = this.$route.params.id;
 			axios
-				.patch(`/api/update/${id}`, this.formData)
+				.patch(`/api/app/update/${id}`, this.formData)
 				.then(() => {
 					console.log("update");
-					this.$router.push("/category-list");
+					this.$router.push("/app/category-list");
 				})
 				.catch(error => {
 					console.log(error);
@@ -69,7 +69,7 @@ export default {
 		},
 		loadCategory() {
 			let id = this.$route.params.id;
-			axios.get(`/api/edit/${id}`).then(response => {
+			axios.get(`/api/app/edit/${id}`).then(response => {
 				this.formData.cat_name = response.data.cat_name;
 				console.log(response);
 			});

@@ -70,13 +70,13 @@ export default {
 	},
 	methods: {
 		deleteCategory(id) {
-			axios.delete("/api/delete/" + id).then(response => {
+			axios.delete("/api/app/delete/" + id).then(response => {
 				this.loadCategories();
 				console.log(response);
 			});
 		},
 		loadCategories() {
-			axios.get("/api/category-list").then(response => {
+			axios.get("/api/app/category-list").then(response => {
 				this.categoriesList = response.data;
 			});
 		}

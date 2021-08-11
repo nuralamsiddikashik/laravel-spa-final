@@ -27,7 +27,7 @@ Route::group( ['prefix' => 'app'], function () {
     } );
 
     //2nd segment
-    Route::get( '/{name}', function () {
+    Route::get( '/{app}', function () {
         return view( 'app' );
-    } )->where( ['name' => '.*'] );
+    } )->where( ['app' => '.*'] );
 } );
