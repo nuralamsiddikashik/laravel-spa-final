@@ -8,6 +8,8 @@ import Login from '../components/auth/Login.vue';
 import CreateCategory from '../pages/category/create.vue';
 import CategoryList from '../pages/category/CategoryList.vue'; 
 import EditCategory from '../pages/category/EditCategory.vue';
+// Service Component 
+import CreatService from '../pages/service/Create.vue';
 
 
 Vue.use(VueRouter);
@@ -44,6 +46,12 @@ const routes = new VueRouter({
             path:'/edit/:id',
             component: EditCategory,
             name: "edit-category",
+            meta: {requiresAuth: true}
+        }, 
+        {
+            path:'/add-service',
+            component: CreatService,
+            name: "add-service",
             meta: {requiresAuth: true}
         }, 
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FserviceController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,9 @@ Route::middleware( ['auth:sanctum'] )->group( function () {
     Route::get( 'edit/{id}', [CategoryController::class, 'categoryEdit'] )->name( 'category.edit' );
     Route::patch( 'update/{id}', [CategoryController::class, 'categoryUpdate'] )->name( 'category.update' );
     Route::delete( 'delete/{id}', [CategoryController::class, 'categoryDelete'] )->name( 'category.delete' );
+
+    // Service Route
+    Route::post( '/add-service', [FserviceController::class, 'addToService'] )->name( 'service.add' );
 
 } );
 

@@ -61,17 +61,9 @@
 						<div class="col-cell hidden-lg">
 							<div class="expand-btn-inner">
 								<ul>
-									<li class="search-parent">
-										<a
-											class="hidden-xs rs-search"
-											data-target=".search-modal"
-											data-toggle="modal"
-											href="#"
-										>
-											<i class="flaticon-search"></i>
-										</a>
+									<li class="quote-btn pl-20">
+										<router-link to="/contact">Get A Quote</router-link>
 									</li>
-									<li class="quote-btn pl-20"><a href="#">Get A Quote</a></li>
 								</ul>
 							</div>
 						</div>

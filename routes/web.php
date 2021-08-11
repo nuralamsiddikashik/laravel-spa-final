@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,19 +16,18 @@ use Illuminate\Support\Facades\Route;
 Route::get( '/', function () {
     return view( 'welcome' );
 } );
-Route::any( '{any}', function () {
+Route::get( '{any}', function () {
     return view( 'welcome' );
 } )->where( ['any' => '^((?!app).)*$'] );
 
-Route::get( '/app', [AdminController::class, 'index'] )->name( 'admin' );
-// Route::any( '{any}', [AdminController::class, 'index'] )->where( 'any', '.*' );
+Route::group( ['prefix' => 'app'], function () {
 
-// Route::get( '/', function () {
-//     return view( 'welcome' );
-// } );
-// Route::any('{any}', function () {
-//     return view('welcome');
-// })->where('any', '.*');
+    Route::get( '/', function () {
+        return view( 'app' );
+    } );
 
-// Route::get( '/app', [AdminController::class, 'index'] )->name( 'admin' );
-// Route::any( '{any}', [AdminController::class, 'index'] )->where( 'any', '.*' );
+    //2nd segment
+    Route::get( '/{name}', function () {
+        return view( 'app' );
+    } )->where( ['name' => '.*'] );
+} );

@@ -2015,14 +2015,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Header",
@@ -22078,12 +22070,27 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(1)
+              _c("div", { staticClass: "col-cell hidden-lg" }, [
+                _c("div", { staticClass: "expand-btn-inner" }, [
+                  _c("ul", [
+                    _c(
+                      "li",
+                      { staticClass: "quote-btn pl-20" },
+                      [
+                        _c("router-link", { attrs: { to: "/contact" } }, [
+                          _vm._v("Get A Quote")
+                        ])
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              ])
             ])
           ])
         ]),
         _vm._v(" "),
-        _vm._m(2)
+        _vm._m(1)
       ])
     ]
   )
@@ -22096,35 +22103,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "mobile-menu" }, [
       _c("a", { staticClass: "rs-menu-toggle" }, [
         _c("i", { staticClass: "fa fa-bars" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-cell hidden-lg" }, [
-      _c("div", { staticClass: "expand-btn-inner" }, [
-        _c("ul", [
-          _c("li", { staticClass: "search-parent" }, [
-            _c(
-              "a",
-              {
-                staticClass: "hidden-xs rs-search",
-                attrs: {
-                  "data-target": ".search-modal",
-                  "data-toggle": "modal",
-                  href: "#"
-                }
-              },
-              [_c("i", { staticClass: "flaticon-search" })]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "quote-btn pl-20" }, [
-            _c("a", { attrs: { href: "#" } }, [_vm._v("Get A Quote")])
-          ])
-        ])
       ])
     ])
   },
