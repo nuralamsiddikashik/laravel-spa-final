@@ -103,6 +103,7 @@ export default {
 					}
 				})
 				.then(({ addService }) => {
+					this.$router.push("/app/service-list");
 					this.resetService();
 					this.$toast.success({
 						title: "Success",

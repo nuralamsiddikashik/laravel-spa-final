@@ -10,6 +10,7 @@ import CategoryList from '../pages/category/CategoryList.vue';
 import EditCategory from '../pages/category/EditCategory.vue';
 // Service Component 
 import CreatService from '../pages/service/Create.vue';
+import ServiceList from '../pages/service/ServiceList.vue'; 
 
 
 Vue.use(VueRouter);
@@ -52,6 +53,12 @@ const routes = new VueRouter({
             path:'/app/add-service',
             component: CreatService,
             name: "add-service",
+            meta: {requiresAuth: true}
+        }, 
+        {
+            path:'/app/service-list',
+            component: ServiceList,
+            name: "service-list",
             meta: {requiresAuth: true}
         }, 
 

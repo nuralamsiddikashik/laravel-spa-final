@@ -96,7 +96,11 @@
 					<router-link
 						class="collapse-item"
 						to="/app/add-service"
-					>Service</router-link>
+					>Create Service</router-link>
+					<router-link
+						class="collapse-item"
+						to="/app/service-list"
+					>Service List</router-link>
 
 				</div>
 			</div>
