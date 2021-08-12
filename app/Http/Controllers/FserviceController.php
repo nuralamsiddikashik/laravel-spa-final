@@ -7,7 +7,12 @@ use Illuminate\Http\Request;
 
 class FserviceController extends Controller {
 
-    public function addToService( Request $request ) {
+    public function showServiceListForHome() {
+        $showServiceList = Fservice::get( ['id', 'service_title', 'service_description'] );
+        return response()->json( $showServiceList, 200 );
+    }
+
+    public function addServiceForHomePage( Request $request ) {
 
         try {
             $this->validate( $request, [
@@ -31,5 +36,10 @@ class FserviceController extends Controller {
         } catch ( QueryException | \Exception $ex ) {
             return response()->json( [], 406 );
         }
+    }
+
+    public function editServiceItem( $id ) {
+        $editServiceItemList = Fservice::findOrFail( $id );
+        return response()->json( $editServiceItemList );
     }
 }

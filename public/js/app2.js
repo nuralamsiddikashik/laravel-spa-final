@@ -3116,8 +3116,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _public_fronted_img_1_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../public/fronted/img/1.png */ "./public/fronted/img/1.png");
-/* harmony import */ var _public_fronted_img_service_shape_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../public/fronted/img/service-shape.png */ "./public/fronted/img/service-shape.png");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _public_fronted_img_1_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../public/fronted/img/1.png */ "./public/fronted/img/1.png");
+/* harmony import */ var _public_fronted_img_service_shape_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../public/fronted/img/service-shape.png */ "./public/fronted/img/service-shape.png");
 //
 //
 //
@@ -3148,44 +3150,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Service",
   data: function data() {
     return {
-      ServiceImage: _public_fronted_img_1_png__WEBPACK_IMPORTED_MODULE_0__.default,
-      ServiceShape: _public_fronted_img_service_shape_png__WEBPACK_IMPORTED_MODULE_1__.default
+      ServiceImage: _public_fronted_img_1_png__WEBPACK_IMPORTED_MODULE_1__.default,
+      ServiceShape: _public_fronted_img_service_shape_png__WEBPACK_IMPORTED_MODULE_2__.default,
+      showServiceList: []
     };
+  },
+  methods: {
+    getServiceList: function getServiceList() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/service-list").then(function (response) {
+        _this.showServiceList = response.data;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getServiceList();
   }
 });
 
@@ -23966,123 +23953,49 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "rs-services style15 pt-100 md-pt-70" }, [
     _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-lg-4 col-md-4 sm-mb-20" }, [
-          _c(
+      _c(
+        "div",
+        { staticClass: "row" },
+        _vm._l(_vm.showServiceList, function(service) {
+          return _c(
             "div",
-            {
-              staticClass: "addon-services",
-              style: { backgroundImage: "url(" + _vm.ServiceShape + ")" }
-            },
+            { key: service, staticClass: "col-lg-4 col-md-4 sm-mb-20" },
             [
-              _c("div", { staticClass: "services-icon" }, [
-                _c("img", {
-                  attrs: { src: "" + _vm.ServiceImage, alt: "images" }
-                })
-              ]),
-              _vm._v(" "),
-              _vm._m(0)
+              _c(
+                "div",
+                {
+                  staticClass: "addon-services",
+                  style: { backgroundImage: "url(" + _vm.ServiceShape + ")" }
+                },
+                [
+                  _c("div", { staticClass: "services-icon" }, [
+                    _c("img", {
+                      attrs: { src: service.service_image, alt: "images" }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "services-text" }, [
+                    _c("h2", { staticClass: "title" }, [
+                      _c("a", { attrs: { href: "#" } }, [
+                        _vm._v(_vm._s(service.service_title))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "services-txt" }, [
+                      _vm._v(" " + _vm._s(service.service_description))
+                    ])
+                  ])
+                ]
+              )
             ]
           )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-4 col-md-4 sm-mb-20" }, [
-          _c(
-            "div",
-            {
-              staticClass: "addon-services",
-              style: { backgroundImage: "url(" + _vm.ServiceShape + ")" }
-            },
-            [
-              _c("div", { staticClass: "services-icon" }, [
-                _c("img", {
-                  attrs: { src: "" + _vm.ServiceImage, alt: "images" }
-                })
-              ]),
-              _vm._v(" "),
-              _vm._m(1)
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-4 col-md-4" }, [
-          _c(
-            "div",
-            {
-              staticClass: "addon-services",
-              style: { backgroundImage: "url(" + _vm.ServiceShape + ")" }
-            },
-            [
-              _c("div", { staticClass: "services-icon" }, [
-                _c("img", {
-                  attrs: { src: "" + _vm.ServiceImage, alt: "images" }
-                })
-              ]),
-              _vm._v(" "),
-              _vm._m(2)
-            ]
-          )
-        ])
-      ])
+        }),
+        0
+      )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "services-text" }, [
-      _c("h2", { staticClass: "title" }, [
-        _c("a", { attrs: { href: "services-single.html" } }, [
-          _vm._v("Online Management")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "services-txt" }, [
-        _vm._v(
-          " Find out what's working and what's not dig into your data Organically"
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "services-text" }, [
-      _c("h2", { staticClass: "title" }, [
-        _c("a", { attrs: { href: "services-single.html" } }, [
-          _vm._v("Rank Optimization")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "services-txt" }, [
-        _vm._v(
-          " Find out what's working and what's not dig into your data Organically"
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "services-text" }, [
-      _c("h2", { staticClass: "title" }, [
-        _c("a", { attrs: { href: "services-single.html" } }, [
-          _vm._v("Fast Process")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "services-txt" }, [
-        _vm._v(
-          " Find out what's working and what's not dig into your data Organically"
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

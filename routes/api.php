@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FserviceController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,8 +30,9 @@ Route::middleware( ['auth:sanctum'] )->group( function () {
     Route::delete( '/app/delete/{id}', [CategoryController::class, 'categoryDelete'] )->name( 'category.delete' );
 
     // Service Route
-    Route::post( '/app/add-service', [FserviceController::class, 'addToService'] )->name( 'service.add' );
-
+    Route::post( '/app/add-service', [FserviceController::class, 'addServiceForHomePage'] )->name( 'service.add' );
+    Route::get( '/app/service-list', [FserviceController::class, 'showServiceListForHome'] )->name( 'service.list' );
+    Route::get( '/app/edit-service/{id}', [FserviceController::class, 'editServiceItem'] )->name( 'service.edit' );
 } );
 
 Route::post( '/app/login', [LoginController::class, 'login'] )->name( 'login' );
@@ -38,3 +40,4 @@ Route::post( 'logout', [LoginController::class, 'logout'] )->middleware( 'auth:s
 
 // Public Controller
 Route::post( '/add-contact', [ContactController::class, 'addContact'] )->name( 'add.contact' );
+Route::get( 'service-list', [HomeController::class, 'showServiceList'] )->name( 'front.service.list' );

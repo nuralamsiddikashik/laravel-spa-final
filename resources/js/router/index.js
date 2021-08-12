@@ -11,6 +11,7 @@ import EditCategory from '../pages/category/EditCategory.vue';
 // Service Component 
 import CreatService from '../pages/service/Create.vue';
 import ServiceList from '../pages/service/ServiceList.vue'; 
+import editService from '../pages/service/editService.vue';
 
 
 Vue.use(VueRouter);
@@ -59,6 +60,12 @@ const routes = new VueRouter({
             path:'/app/service-list',
             component: ServiceList,
             name: "service-list",
+            meta: {requiresAuth: true}
+        }, 
+        {
+            path:'/app/edit-service/:id',
+            component: editService,
+            name: "edit-service",
             meta: {requiresAuth: true}
         }, 
 

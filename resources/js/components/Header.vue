@@ -324,7 +324,7 @@ export default {
 				.post("/api/logout")
 				.then(response => {
 					localStorage.removeItem("token");
-					this.$router.push("/login");
+					this.$router.push("/app/login");
 				})
 				.catch(errors => {
 					console.log(errors);

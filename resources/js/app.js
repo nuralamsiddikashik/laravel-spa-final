@@ -25,7 +25,7 @@ routes.beforeEach((to, from, next) => {
         // if not, redirect to login page.
         if (!loggedIn()) {
             next({
-            path: '/login',
+            path: '/app/login',
             })
         } else {
             next()
