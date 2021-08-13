@@ -8,7 +8,7 @@
 			<div id="content">
 				<Header />
 				<div class="container-fluid">
-					<div class="col-md-6 offset-md-3">
+					<div class="col-md-8 offset-md-2">
 						<div class="card shadow mb-4">
 							<div class="card-header py-3">
 								<h6 class="m-0 font-weight-bold text-primary">Category List</h6>
@@ -18,30 +18,30 @@
 									<thead>
 										<tr>
 											<th>SL</th>
-											<th>Category Name</th>
-											<th>Category Slug</th>
+											<th>Contact Name</th>
+											<th>Contact Email</th>
+											<th>Contact Phone</th>
+											<th>Website</th>
+											<th>Message</th>
 											<th>Edit</th>
 											<th>Remove</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr
-											v-for="(category,index) in categoriesList"
+											v-for="(contact,index) in contactListShow"
 											:key="index"
 										>
 											<td>{{++index}}</td>
-											<td>{{category.cat_name}}</td>
-											<td>{{category.slug}}</td>
+											<td>{{contact.name}}</td>
+											<td>{{contact.email}}</td>
+											<td>{{contact.phone}}</td>
+											<td>{{contact.website}}</td>
+											<td>{{contact.message}}</td>
 											<td>
-												<router-link
-													:to="{name: 'category-edit', params: {id: category.id}}"
-													class="btn btn-success"
-												>Edit</router-link>
+												Edit
 											</td>
-											<td><a
-													@click="deleteCategory(category.id)"
-													class="btn btn-danger"
-												>Delete</a></td>
+											<td>Delete</td>
 										</tr>
 									</tbody>
 								</table>
@@ -58,31 +58,25 @@
 import Header from "../../components/Header.vue";
 import Sidebar from "../../components/Sidebar.vue";
 export default {
-	name: "category-list",
+	name: "contact-list",
 	components: {
 		Header,
 		Sidebar
 	},
 	data() {
 		return {
-			categoriesList: []
+			contactListShow: []
 		};
 	},
 	methods: {
-		deleteCategory(id) {
-			axios.delete("/api/app/category-delete/" + id).then(response => {
-				this.loadCategories();
-				console.log(response);
-			});
-		},
-		loadCategories() {
-			axios.get("/api/app/category-list").then(response => {
-				this.categoriesList = response.data;
+		getContactList() {
+			axios.get("/api/app/contact-list").then(response => {
+				this.contactListShow = response.data;
 			});
 		}
 	},
 	mounted() {
-		this.loadCategories();
+		this.getContactList();
 	}
 };
 </script>

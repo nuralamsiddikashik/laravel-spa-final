@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fservice;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class FserviceController extends Controller {
 
@@ -41,5 +44,33 @@ class FserviceController extends Controller {
     public function editServiceItem( $id ) {
         $editServiceItemList = Fservice::findOrFail( $id );
         return response()->json( $editServiceItemList );
+    }
+
+    public function updateServiceList( Request $request, $id ) {
+        try {
+           
+            $this->validate( $request, [
+                'service_title'       => 'required|string|max:255',
+                'service_description' => 'required|string|max:255',
+                'service_image'       => 'sometimes|image|mimes:jpeg,jpg,png|max:2048',
+            ] );
+            $serviceListUpdate = Fservice::findOrFail( $id );
+            if ( $request->hasFile( 'service_image' ) ) {
+                $service_image_name = time() . '_' . uniqid() . '.' . $request->service_image->getClientOriginalExtension();
+                $request->service_image->move( public_path( 'storage/service' ), $service_image_name );
+                $service_image = '/storage/service/' . $service_image_name;
+            }
+            $serviceListUpdate->update( [
+                'service_title'       => $request->service_title,
+                'service_description' => $request->service_description,
+                'service_image'       => $service_image ?? $serviceListUpdate->service_image,
+            ] );
+            return response()->json( $serviceListUpdate, 200 );
+        } catch ( ValidationException $exception ) {
+            return response()->json( $exception->errors(), 422 );
+        } catch ( QueryException | \Exception $ex ) {
+            Log::info( 'update error', [$ex] );
+            return response()->json( [], 406 );
+        }
     }
 }

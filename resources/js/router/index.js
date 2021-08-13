@@ -13,6 +13,9 @@ import CreatService from '../pages/service/Create.vue';
 import ServiceList from '../pages/service/ServiceList.vue'; 
 import editService from '../pages/service/editService.vue';
 
+// Frontend contact list show 
+import ContactListShow from '../pages/contact/contactList.vue';
+
 
 Vue.use(VueRouter);
 
@@ -45,9 +48,9 @@ const routes = new VueRouter({
             meta: {requiresAuth: true}
         }, 
         {
-            path:'/app/edit/:id',
+            path:'/app/category-edit/:id',
             component: EditCategory,
-            name: "edit-category",
+            name: "category-edit",
             meta: {requiresAuth: true}
         }, 
         {
@@ -66,6 +69,12 @@ const routes = new VueRouter({
             path:'/app/edit-service/:id',
             component: editService,
             name: "edit-service",
+            meta: {requiresAuth: true}
+        }, 
+        {
+            path:'/app/contact-list',
+            component: ContactListShow,
+            name: "contact-list",
             meta: {requiresAuth: true}
         }, 
 

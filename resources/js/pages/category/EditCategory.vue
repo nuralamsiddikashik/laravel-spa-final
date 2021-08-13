@@ -42,7 +42,7 @@
 import Header from "../../components/Header.vue";
 import Sidebar from "../../components/Sidebar.vue";
 export default {
-	name: "category-list",
+	name: "category-edit",
 	components: {
 		Header,
 		Sidebar
@@ -58,7 +58,7 @@ export default {
 		updateCategory() {
 			let id = this.$route.params.id;
 			axios
-				.patch(`/api/app/update/${id}`, this.formData)
+				.patch(`/api/app/category-update/${id}`, this.formData)
 				.then(() => {
 					console.log("update");
 					this.$router.push("/app/category-list");
@@ -69,7 +69,7 @@ export default {
 		},
 		loadCategory() {
 			let id = this.$route.params.id;
-			axios.get(`/api/app/edit/${id}`).then(response => {
+			axios.get(`/api/app/category-edit/${id}`).then(response => {
 				this.formData.cat_name = response.data.cat_name;
 				console.log(response);
 			});

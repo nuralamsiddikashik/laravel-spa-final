@@ -25,14 +25,19 @@ Route::middleware( ['auth:sanctum'] )->group( function () {
     } );
     Route::post( '/app/add-category', [CategoryController::class, 'addCategory'] )->name( 'category.add' );
     Route::get( '/app/category-list', [CategoryController::class, 'categoryList'] )->name( 'category.list' );
-    Route::get( '/app/edit/{id}', [CategoryController::class, 'categoryEdit'] )->name( 'category.edit' );
-    Route::patch( '/app/update/{id}', [CategoryController::class, 'categoryUpdate'] )->name( 'category.update' );
-    Route::delete( '/app/delete/{id}', [CategoryController::class, 'categoryDelete'] )->name( 'category.delete' );
+    Route::get( '/app/category-edit/{id}', [CategoryController::class, 'categoryEdit'] )->name( 'category.edit' );
+    Route::patch( '/app/category-update/{id}', [CategoryController::class, 'categoryUpdate'] )->name( 'category.update' );
+    Route::delete( '/app/category-delete/{id}', [CategoryController::class, 'categoryDelete'] )->name( 'category.delete' );
 
     // Service Route
     Route::post( '/app/add-service', [FserviceController::class, 'addServiceForHomePage'] )->name( 'service.add' );
     Route::get( '/app/service-list', [FserviceController::class, 'showServiceListForHome'] )->name( 'service.list' );
     Route::get( '/app/edit-service/{id}', [FserviceController::class, 'editServiceItem'] )->name( 'service.edit' );
+    // Route::get( '/app/edit-service/{id}', [FserviceController::class, 'editServiceItem'] )->name( 'service.edit' );
+
+    Route::post( '/app/update-service/{id}', [FserviceController::class, 'updateServiceList'] )->name( 'service.update' ); // eita bhai
+    // Contact List route
+    Route::get( '/app/contact-list', [ContactController::class, 'showContactList'] )->name( 'contact.list' );
 } );
 
 Route::post( '/app/login', [LoginController::class, 'login'] )->name( 'login' );

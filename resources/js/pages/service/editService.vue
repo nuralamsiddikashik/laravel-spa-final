@@ -13,8 +13,9 @@
 							<div class="card border-left-primary shadow h-100 py-2">
 								<div class="card-body">
 									<form
-										method="PUT"
+										method="POST"
 										enctype="multipart/form-data"
+										@submit.prevent="updateService()"
 									>
 										<div class="form-group">
 											<label for="service_title">Service Name</label>
@@ -75,8 +76,7 @@
 <script>
 import Header from "../../components/Header.vue";
 import Sidebar from "../../components/Sidebar.vue";
-import { Form } from "vform";
-import { objectToFormData } from "object-to-formdata";
+
 export default {
 	name: "category-list",
 	components: {
@@ -85,12 +85,11 @@ export default {
 	},
 	data() {
 		return {
-			editService: new Form({
+			editService: {
 				service_title: "",
 				service_description: "",
-				service_image: "",
-				_method: "put"
-			}),
+				service_image: ""
+			},
 			service_image: ""
 		};
 	},
@@ -103,6 +102,36 @@ export default {
 				this.editService.service_description = product.service_description;
 				this.service_image = product.service_image;
 			});
+		},
+		updateService() {
+			let id = this.$route.params.id;
+			let formDataNew = new FormData();
+			formDataNew.append("service_title", this.editService.service_title);
+			formDataNew.append(
+				"service_description",
+				this.editService.service_description
+			);
+
+			if (this.editService.service_image != "") {
+				formDataNew.append("service_image", this.editService.service_image);
+			}
+			console.log(...formDataNew.entries());
+
+			axios
+				.post("/api/app/update-service/" + id, formDataNew, {
+					header: {
+						"Content-Type": "multipart-formdata"
+					}
+				})
+				.then(({ data }) => {
+					this.service_image = data.service_image;
+					this.$router.push("/app/service-list");
+					this.$toast.success({
+						title: "Success",
+						message: "Service Create Success"
+					});
+					console.log(data);
+				});
 		},
 		onImageChange(e) {
 			const file = e.target.files[0];

@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller {
 
+    public function showContactList() {
+        $contactListShow = Contact::get( ['id', 'name', 'email', 'phone', 'website', 'message'] );
+        return response()->json( $contactListShow, 200 );
+    }
+
     public function addContact( Request $request ) {
         try {
             $this->validate( $request, [
