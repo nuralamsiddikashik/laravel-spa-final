@@ -115,8 +115,6 @@ export default {
 			if (this.editService.service_image != "") {
 				formDataNew.append("service_image", this.editService.service_image);
 			}
-			console.log(...formDataNew.entries());
-
 			axios
 				.post("/api/app/update-service/" + id, formDataNew, {
 					header: {
@@ -128,7 +126,7 @@ export default {
 					this.$router.push("/app/service-list");
 					this.$toast.success({
 						title: "Success",
-						message: "Service Create Success"
+						message: "Service update Success"
 					});
 					console.log(data);
 				});

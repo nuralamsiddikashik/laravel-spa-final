@@ -48,7 +48,7 @@ class FserviceController extends Controller {
 
     public function updateServiceList( Request $request, $id ) {
         try {
-           
+
             $this->validate( $request, [
                 'service_title'       => 'required|string|max:255',
                 'service_description' => 'required|string|max:255',
@@ -72,5 +72,18 @@ class FserviceController extends Controller {
             Log::info( 'update error', [$ex] );
             return response()->json( [], 406 );
         }
+    }
+
+    public function serviceDelete( $id ) {
+        $deleteServiceList = Fservice::findOrFail( $id );
+        if ( $deleteServiceList ) {
+            $serviceImage     = $deleteServiceList->service_image;
+            $serviceImagePath = public_path( $serviceImage );
+            if ( $serviceImage && file_exists( $serviceImagePath ) ) {
+                unlink( $serviceImagePath );
+            }
+            $deleteServiceList->delete();
+        }
+        return response()->json( 'success delete' );
     }
 }

@@ -38,7 +38,10 @@
 													class="btn btn-primary btn-sm"
 												>Edit</router-link>
 											</td>
-											<td>Delete</td>
+											<td><a
+													@click="deleteService(service.id)"
+													class="btn btn-danger"
+												>Delete</a></td>
 										</tr>
 									</tbody>
 								</table>
@@ -66,6 +69,12 @@ export default {
 		};
 	},
 	methods: {
+		deleteService(id) {
+			axios.delete("/api/app/service-delete/" + id).then(response => {
+				this.getServiceList();
+				console.log(response);
+			});
+		},
 		getServiceList() {
 			axios.get("/api/app/service-list").then(response => {
 				this.showServiceList = response.data;

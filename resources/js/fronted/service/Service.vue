@@ -5,7 +5,7 @@
 				<div
 					class="col-lg-4 col-md-4 sm-mb-20"
 					v-for="service in showServiceList"
-					:key="service"
+					v-bind:key="service.id"
 				>
 					<div
 						class="addon-services"

@@ -23959,7 +23959,7 @@ var render = function() {
         _vm._l(_vm.showServiceList, function(service) {
           return _c(
             "div",
-            { key: service, staticClass: "col-lg-4 col-md-4 sm-mb-20" },
+            { key: service.id, staticClass: "col-lg-4 col-md-4 sm-mb-20" },
             [
               _c(
                 "div",

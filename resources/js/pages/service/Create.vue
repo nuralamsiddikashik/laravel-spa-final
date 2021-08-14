@@ -67,12 +67,9 @@
 </template>
 
 <script>
-import Form from "vform";
 // Header & Footer Component Load
 import Header from "../../components/Header.vue";
 import Sidebar from "../../components/Sidebar.vue";
-
-import { objectToFormData } from "object-to-formdata";
 export default {
 	name: "AddService",
 	components: {
@@ -81,35 +78,38 @@ export default {
 	},
 	data() {
 		return {
-			addService: new Form({
+			addService: {
 				service_title: "",
 				service_description: "",
 				service_image: ""
-			})
+			}
 		};
 	},
 	methods: {
 		createService() {
-			this.addService
-				.post("/api/app/add-service", {
-					transformRequest: [
-						function(addService, headers) {
-							return objectToFormData(addService);
-						}
-					],
-					onUploadProgress: e => {
-						// Do whatever you want with the progress event
-						console.log(e);
+			let formData = new FormData();
+			formData.append("service_title", this.addService.service_title);
+			formData.append(
+				"service_description",
+				this.addService.service_description
+			);
+			formData.append("service_image", this.addService.service_image);
+
+			axios
+				.post("/api/app/add-service", formData)
+				.then(response => {
+					if (response.status === 200) {
+						console.log(response.data);
+						this.resetService();
+						this.$toast.success({
+							title: "Success",
+							message: "Service create success"
+						});
+						this.$router.push("/app/service-list");
 					}
 				})
-				.then(({ addService }) => {
-					this.$router.push("/app/service-list");
-					this.resetService();
-					this.$toast.success({
-						title: "Success",
-						message: "Service Create Success"
-					});
-					console.log(addService);
+				.catch(error => {
+					console.log(error.message);
 				});
 		},
 		onImageChange(e) {
