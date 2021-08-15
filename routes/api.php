@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FserviceController;
@@ -38,6 +39,9 @@ Route::middleware( ['auth:sanctum'] )->group( function () {
     Route::post( '/app/update-service/{id}', [FserviceController::class, 'updateServiceList'] )->name( 'service.update' );
     Route::delete( '/app/service-delete/{id}', [FserviceController::class, 'serviceDelete'] )->name( 'service.delete' );
 
+    // About
+    Route::get( '/app/about-list', [AboutController::class, 'addAboutList'] )->name( 'about.list' );
+    Route::post( '/app/update-about', [AboutController::class, 'addToAbout'] )->name( 'about.store' );
     // Contact List route
     Route::get( '/app/contact-list', [ContactController::class, 'showContactList'] )->name( 'contact.list' );
 } );

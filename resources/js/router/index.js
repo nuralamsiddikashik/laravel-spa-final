@@ -12,6 +12,7 @@ import EditCategory from '../pages/category/EditCategory.vue';
 import CreatService from '../pages/service/Create.vue';
 import ServiceList from '../pages/service/ServiceList.vue'; 
 import editService from '../pages/service/editService.vue';
+import addAbout from '../pages/about/about.vue';
 
 // Frontend contact list show 
 import ContactListShow from '../pages/contact/contactList.vue';
@@ -75,6 +76,12 @@ const routes = new VueRouter({
             path:'/app/contact-list',
             component: ContactListShow,
             name: "contact-list",
+            meta: {requiresAuth: true}
+        }, 
+        {
+            path:'/app/about-list',
+            component: addAbout,
+            name: "about",
             meta: {requiresAuth: true}
         }, 
 
