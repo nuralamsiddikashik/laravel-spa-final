@@ -42,7 +42,7 @@ export default {
 	methods: {
 		getServiceList() {
 			axios.get("/api/service-list").then(response => {
-				this.showServiceList = response.data;
+				this.showServiceList = response.data.services;
 			});
 		}
 	},

@@ -8,9 +8,9 @@
 				<div class="col-lg-6 pl-50 md-pl-15 order-last">
 					<div class="sec-title3">
 						<span class="sub-title">~ <span class="title-upper">About Us</span> ~</span>
-						<h2 class="title title2 pb-25">Grow Your Business With Our Digital Agency</h2>
-						<p class="desc pb-20">Over 25 years Reobiz helping companies reach<br>their financial and branding goals.</p>
-						<p class="description pb-30">On the other hand we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment so blinded by desire. Letraset sheets containing Lorem passages, desktop publishing</p>
+						<h2 class="title title2 pb-25">{{getaboutListShow.about_title}}</h2>
+						<p class="desc pb-20">{{getaboutListShow.about_subtitle}}</p>
+						<p class="description pb-30">{{getaboutListShow.about_description}}</p>
 						<ul class="btn-part">
 							<li><a
 									class="readon2 get-new"
@@ -33,7 +33,7 @@
 				<div class="col-lg-6 md-mb-50">
 					<div class="images-part">
 						<img
-							:src="`${AboutImage}`"
+							:src="getaboutListShow.about_image"
 							alt="images"
 						>
 					</div>
@@ -319,13 +319,22 @@
 	</div>
 </template>
 <script>
-import AboutImage from "../../../../public/fronted/img/about-13.png";
 import WidgetImage from "../../../../public/fronted/img/exp-bg13.png";
 export default {
 	name: "HomeAbout",
 	data: () => ({
-		AboutImage,
-		WidgetImage
-	})
+		WidgetImage,
+		getaboutListShow: {}
+	}),
+	methods: {
+		showAboutList() {
+			axios.get("/api/service-list").then(response => {
+				this.getaboutListShow = response.data.abouts;
+			});
+		}
+	},
+	mounted() {
+		this.showAboutList();
+	}
 };
 </script>

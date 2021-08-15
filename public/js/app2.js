@@ -2079,8 +2079,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _public_fronted_img_about_13_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../public/fronted/img/about-13.png */ "./public/fronted/img/about-13.png");
-/* harmony import */ var _public_fronted_img_exp_bg13_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../public/fronted/img/exp-bg13.png */ "./public/fronted/img/exp-bg13.png");
+/* harmony import */ var _public_fronted_img_exp_bg13_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../public/fronted/img/exp-bg13.png */ "./public/fronted/img/exp-bg13.png");
 //
 //
 //
@@ -2401,15 +2400,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "HomeAbout",
   data: function data() {
     return {
-      AboutImage: _public_fronted_img_about_13_png__WEBPACK_IMPORTED_MODULE_0__.default,
-      WidgetImage: _public_fronted_img_exp_bg13_png__WEBPACK_IMPORTED_MODULE_1__.default
+      WidgetImage: _public_fronted_img_exp_bg13_png__WEBPACK_IMPORTED_MODULE_0__.default,
+      getaboutListShow: {}
     };
+  },
+  methods: {
+    showAboutList: function showAboutList() {
+      var _this = this;
+
+      axios.get("/api/service-list").then(function (response) {
+        _this.getaboutListShow = response.data.abouts;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.showAboutList();
   }
 });
 
@@ -3167,7 +3177,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/service-list").then(function (response) {
-        _this.showServiceList = response.data;
+        _this.showServiceList = response.data.services;
       });
     }
   },
@@ -3388,21 +3398,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/6.jpg?418e51c88a58261bac95c4ee857aa9d1");
-
-/***/ }),
-
-/***/ "./public/fronted/img/about-13.png":
-/*!*****************************************!*\
-  !*** ./public/fronted/img/about-13.png ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/about-13.png?05a4af38d04e14ac0bd2993ee22ba6ba");
 
 /***/ }),
 
@@ -22269,11 +22264,31 @@ var render = function() {
     [
       _c("div", { staticClass: "container" }, [
         _c("div", { staticClass: "row y-middle" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "col-lg-6 pl-50 md-pl-15 order-last" }, [
+            _c("div", { staticClass: "sec-title3" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("h2", { staticClass: "title title2 pb-25" }, [
+                _vm._v(_vm._s(_vm.getaboutListShow.about_title))
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "desc pb-20" }, [
+                _vm._v(_vm._s(_vm.getaboutListShow.about_subtitle))
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "description pb-30" }, [
+                _vm._v(_vm._s(_vm.getaboutListShow.about_description))
+              ]),
+              _vm._v(" "),
+              _vm._m(1)
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-6 md-mb-50" }, [
             _c("div", { staticClass: "images-part" }, [
-              _c("img", { attrs: { src: "" + _vm.AboutImage, alt: "images" } })
+              _c("img", {
+                attrs: { src: _vm.getaboutListShow.about_image, alt: "images" }
+              })
             ]),
             _vm._v(" "),
             _c(
@@ -22282,13 +22297,13 @@ var render = function() {
                 staticClass: "widget-center",
                 style: { backgroundImage: "url(" + _vm.WidgetImage + ")" }
               },
-              [_vm._m(1)]
+              [_vm._m(2)]
             )
           ])
         ])
       ]),
       _vm._v(" "),
-      _vm._m(2)
+      _vm._m(3)
     ]
   )
 }
@@ -22297,49 +22312,33 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-6 pl-50 md-pl-15 order-last" }, [
-      _c("div", { staticClass: "sec-title3" }, [
-        _c("span", { staticClass: "sub-title" }, [
-          _vm._v("~ "),
-          _c("span", { staticClass: "title-upper" }, [_vm._v("About Us")]),
-          _vm._v(" ~")
-        ]),
-        _vm._v(" "),
-        _c("h2", { staticClass: "title title2 pb-25" }, [
-          _vm._v("Grow Your Business With Our Digital Agency")
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "desc pb-20" }, [
-          _vm._v("Over 25 years Reobiz helping companies reach"),
-          _c("br"),
-          _vm._v("their financial and branding goals.")
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "description pb-30" }, [
-          _vm._v(
-            "On the other hand we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment so blinded by desire. Letraset sheets containing Lorem passages, desktop publishing"
+    return _c("span", { staticClass: "sub-title" }, [
+      _vm._v("~ "),
+      _c("span", { staticClass: "title-upper" }, [_vm._v("About Us")]),
+      _vm._v(" ~")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "btn-part" }, [
+      _c("li", [
+        _c("a", { staticClass: "readon2 get-new", attrs: { href: "#" } }, [
+          _vm._v("Learn More")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _c("div", { staticClass: "video-btn seo-agency text-center" }, [
+          _c(
+            "a",
+            {
+              staticClass: "popup-videos",
+              attrs: { href: "https://www.youtube.com/watch?v=YLN1Argi7ik" }
+            },
+            [_c("i", { staticClass: "fa fa-play" })]
           )
-        ]),
-        _vm._v(" "),
-        _c("ul", { staticClass: "btn-part" }, [
-          _c("li", [
-            _c("a", { staticClass: "readon2 get-new", attrs: { href: "#" } }, [
-              _vm._v("Learn More")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("div", { staticClass: "video-btn seo-agency text-center" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "popup-videos",
-                  attrs: { href: "https://www.youtube.com/watch?v=YLN1Argi7ik" }
-                },
-                [_c("i", { staticClass: "fa fa-play" })]
-              )
-            ])
-          ])
         ])
       ])
     ])

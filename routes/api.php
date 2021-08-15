@@ -52,3 +52,4 @@ Route::post( 'logout', [LoginController::class, 'logout'] )->middleware( 'auth:s
 // Public Controller
 Route::post( '/add-contact', [ContactController::class, 'addContact'] )->name( 'add.contact' );
 Route::get( 'service-list', [HomeController::class, 'showServiceList'] )->name( 'front.service.list' );
+// Route::get( 'about-list', [HomeController::class, 'showAboutList'] )->name( 'front.about.list' );
