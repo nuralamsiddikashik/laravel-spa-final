@@ -33,7 +33,7 @@ import axios from "axios";
 import ServiceImage from "../../../../public/fronted/img/1.png";
 import ServiceShape from "../../../../public/fronted/img/service-shape.png";
 export default {
-	name: "Service",
+	name: "ShortService",
 	data: () => ({
 		ServiceImage,
 		ServiceShape,
