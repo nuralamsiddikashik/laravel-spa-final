@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FserviceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,14 +31,15 @@ Route::middleware( ['auth:sanctum'] )->group( function () {
     Route::patch( '/app/category-update/{id}', [CategoryController::class, 'categoryUpdate'] )->name( 'category.update' );
     Route::delete( '/app/category-delete/{id}', [CategoryController::class, 'categoryDelete'] )->name( 'category.delete' );
 
-    // Service Route
+    // Short Service Route
     Route::post( '/app/add-service', [FserviceController::class, 'addServiceForHomePage'] )->name( 'service.add' );
     Route::get( '/app/service-list', [FserviceController::class, 'showServiceListForHome'] )->name( 'service.list' );
     Route::get( '/app/edit-service/{id}', [FserviceController::class, 'editServiceItem'] )->name( 'service.edit' );
-    // Route::get( '/app/edit-service/{id}', [FserviceController::class, 'editServiceItem'] )->name( 'service.edit' );
-
     Route::post( '/app/update-service/{id}', [FserviceController::class, 'updateServiceList'] )->name( 'service.update' );
     Route::delete( '/app/service-delete/{id}', [FserviceController::class, 'serviceDelete'] )->name( 'service.delete' );
+
+    // Service Route
+    Route::post( '/app/add-service-two', [ServiceController::class, 'addToService'] )->name( 'service.two.add' );
 
     // About
     Route::get( '/app/about-list', [AboutController::class, 'addAboutList'] )->name( 'about.list' );

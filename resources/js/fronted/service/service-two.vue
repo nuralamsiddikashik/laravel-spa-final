@@ -87,6 +87,7 @@
 	</div>
 </template>
 <script>
+import axios from "axios";
 import ServiceBG from "../../../.././public/fronted/img/services-bg13.png";
 export default {
 	name: "ServiceTwo",

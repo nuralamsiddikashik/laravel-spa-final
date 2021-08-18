@@ -83,6 +83,39 @@
 				aria-controls="collapseTwo"
 			>
 				<i class="fas fa-fw fa-cog"></i>
+				<span>Short Service</span>
+			</a>
+			<div
+				id="collapseTwo"
+				class="collapse"
+				aria-labelledby="headingTwo"
+				data-parent="#accordionSidebar"
+			>
+				<div class="bg-white py-2 collapse-inner rounded">
+					<h6 class="collapse-header">Short Service Components:</h6>
+					<router-link
+						class="collapse-item"
+						to="/app/add-service"
+					>Create Service</router-link>
+					<router-link
+						class="collapse-item"
+						to="/app/service-list"
+					>Service List</router-link>
+
+				</div>
+			</div>
+		</li>
+
+		<li class="nav-item">
+			<a
+				class="nav-link collapsed"
+				href="#"
+				data-toggle="collapse"
+				data-target="#collapseTwo"
+				aria-expanded="true"
+				aria-controls="collapseTwo"
+			>
+				<i class="fas fa-fw fa-cog"></i>
 				<span>Service</span>
 			</a>
 			<div
@@ -95,12 +128,8 @@
 					<h6 class="collapse-header">Service Components:</h6>
 					<router-link
 						class="collapse-item"
-						to="/app/add-service"
+						to="/app/add-service-two"
 					>Create Service</router-link>
-					<router-link
-						class="collapse-item"
-						to="/app/service-list"
-					>Service List</router-link>
 
 				</div>
 			</div>

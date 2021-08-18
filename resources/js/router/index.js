@@ -8,12 +8,14 @@ import Login from '../components/auth/Login.vue';
 import CreateCategory from '../pages/category/create.vue';
 import CategoryList from '../pages/category/CategoryList.vue'; 
 import EditCategory from '../pages/category/EditCategory.vue';
-// Service Component 
+// Short Service Component 
 import CreatService from '../pages/service/Create.vue';
 import ServiceList from '../pages/service/ServiceList.vue'; 
 import editService from '../pages/service/editService.vue';
 import addAbout from '../pages/about/about.vue';
 
+// Services Component 
+import CreateService from '../pages/services/add.vue'; 
 // Frontend contact list show 
 import ContactListShow from '../pages/contact/contactList.vue';
 
@@ -82,6 +84,13 @@ const routes = new VueRouter({
             path:'/app/about-list',
             component: addAbout,
             name: "about",
+            meta: {requiresAuth: true}
+        }, 
+
+        {
+            path:'/app/add-service-two',
+            component: CreateService,
+            name: "create-service",
             meta: {requiresAuth: true}
         }, 
 
