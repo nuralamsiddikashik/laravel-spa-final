@@ -58,8 +58,11 @@ export default {
 	methods: {
 		createCategory() {
 			axios.post("/api/app/add-category", this.formData).then(response => {
-				console.log("category create success");
 				this.$router.push("/app/category-list");
+				this.$toast.success({
+					title: "Success",
+					message: "Category create success"
+				});
 			});
 		}
 	}

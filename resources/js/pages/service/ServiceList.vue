@@ -26,7 +26,7 @@
 									</thead>
 									<tbody>
 										<tr
-											v-for="(service,index) in showServiceList"
+											v-for="(service,index) in services"
 											:key="index"
 										>
 											<td>{{++index}}</td>
@@ -63,26 +63,21 @@ export default {
 		Header,
 		Sidebar
 	},
-	data() {
-		return {
-			showServiceList: []
-		};
-	},
 	methods: {
 		deleteService(id) {
 			axios.delete("/api/app/service-delete/" + id).then(response => {
-				this.getServiceList();
+				this.$store.dispatch("getServices");
 				console.log(response);
-			});
-		},
-		getServiceList() {
-			axios.get("/api/app/service-list").then(response => {
-				this.showServiceList = response.data;
 			});
 		}
 	},
+	computed: {
+		services() {
+			return this.$store.getters.services;
+		}
+	},
 	mounted() {
-		this.getServiceList();
+		this.$store.dispatch("getServices");
 	}
 };
 </script>

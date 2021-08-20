@@ -9,8 +9,8 @@ use Illuminate\Support\Str;
 class CategoryController extends Controller {
 
     public function categoryList() {
-        $categoriesList = Category::get();
-        return response()->json( $categoriesList, 200 );
+        $categories = Category::get();
+        return response()->json( ['categories' => $categories, 200] );
     }
 
     public function addCategory( Request $request ) {
@@ -56,5 +56,12 @@ class CategoryController extends Controller {
         $categoryDelete = Category::findOrFail( $id );
         $categoryDelete->delete();
         return response()->json( 'success delete' );
+    }
+
+    public function removeCategoryAllItems( Request $request ) {
+        foreach ( $request->data as $row ) {
+            $category = Category::findOrFail( $row );
+            $category->delete();
+        }
     }
 }

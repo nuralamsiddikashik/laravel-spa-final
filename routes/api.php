@@ -30,7 +30,7 @@ Route::middleware( ['auth:sanctum'] )->group( function () {
     Route::get( '/app/category-edit/{id}', [CategoryController::class, 'categoryEdit'] )->name( 'category.edit' );
     Route::patch( '/app/category-update/{id}', [CategoryController::class, 'categoryUpdate'] )->name( 'category.update' );
     Route::delete( '/app/category-delete/{id}', [CategoryController::class, 'categoryDelete'] )->name( 'category.delete' );
-
+    Route::post( '/app/remove-all-category', [CategoryController::class, 'removeCategoryAllItems'] )->name( 'category.delete.all' );
     // Short Service Route
     Route::post( '/app/add-service', [FserviceController::class, 'addServiceForHomePage'] )->name( 'service.add' );
     Route::get( '/app/service-list', [FserviceController::class, 'showServiceListForHome'] )->name( 'service.list' );
