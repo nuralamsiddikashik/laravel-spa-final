@@ -131,6 +131,11 @@
 						to="/app/add-service-two"
 					>Create Service</router-link>
 
+					<router-link
+						class="collapse-item"
+						to="/app/services-list"
+					>Services List</router-link>
+
 				</div>
 			</div>
 		</li>

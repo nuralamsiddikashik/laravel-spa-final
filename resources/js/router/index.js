@@ -16,6 +16,7 @@ import addAbout from '../pages/about/about.vue';
 
 // Services Component 
 import CreateService from '../pages/services/add.vue'; 
+import ServicesList from '../pages/services/services.vue'; 
 // Frontend contact list show 
 import ContactListShow from '../pages/contact/contactList.vue';
 
@@ -91,6 +92,13 @@ const routes = new VueRouter({
             path:'/app/add-service-two',
             component: CreateService,
             name: "create-service",
+            meta: {requiresAuth: true}
+        }, 
+
+        {
+            path:'/app/services-list',
+            component: ServicesList,
+            name: "services-list",
             meta: {requiresAuth: true}
         }, 
 

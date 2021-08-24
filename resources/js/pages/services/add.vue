@@ -93,7 +93,7 @@ export default {
 				.post("/api/app/add-service-two", this.createServiceForm)
 				.then(response => {
 					if (response.status === 200) {
-						console.log(response.data);
+						this.$router.push("/app/services-list");
 						this.resetCreateForm();
 						this.$toast.success({
 							title: "Success",

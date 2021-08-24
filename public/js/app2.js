@@ -2672,6 +2672,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3231,69 +3232,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ServiceTwo",
   data: function data() {
     return {
-      ServiceBG: _public_fronted_img_services_bg13_png__WEBPACK_IMPORTED_MODULE_1__.default
+      ServiceBG: _public_fronted_img_services_bg13_png__WEBPACK_IMPORTED_MODULE_1__.default,
+      getListOfService: []
     };
+  },
+  methods: {
+    getServicesListShow: function getServicesListShow() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/service-list").then(function (response) {
+        _this.getListOfService = response.data.getservices;
+      })["catch"](function (error) {
+        console.log(error.message);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getServicesListShow();
   }
 });
 
@@ -3314,6 +3275,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _public_fronted_img_1_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../public/fronted/img/1.png */ "./public/fronted/img/1.png");
 /* harmony import */ var _public_fronted_img_service_shape_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../public/fronted/img/service-shape.png */ "./public/fronted/img/service-shape.png");
+/* harmony import */ var _contact_Contact_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../contact/Contact.vue */ "./resources/js/fronted/contact/Contact.vue");
 //
 //
 //
@@ -3344,10 +3306,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    Contact: _contact_Contact_vue__WEBPACK_IMPORTED_MODULE_3__.default
+  },
   name: "ShortService",
   data: function data() {
     return {
@@ -24394,7 +24362,48 @@ var render = function() {
       style: { backgroundImage: "url(" + _vm.ServiceBG + ")" },
       attrs: { id: "rs-services" }
     },
-    [_vm._m(0)]
+    [
+      _c("div", { staticClass: "container" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "row" },
+          _vm._l(_vm.getListOfService, function(serviceList, index) {
+            return _c(
+              "div",
+              { key: index, staticClass: "col-lg-4 col-md-6 mb-25" },
+              [
+                _c("div", { staticClass: "services-wrap" }, [
+                  _c("div", { staticClass: "icon-part" }, [
+                    _c("i", { class: serviceList.services_icon })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "services-txt" }, [
+                    _c("h4", { staticClass: "services-title" }, [
+                      _c("a", { attrs: { href: "#" } }, [
+                        _vm._v(_vm._s(serviceList.services_title))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "services-txt" }, [
+                      _vm._v(
+                        "Podcasting operational change manaent inside of Workflows."
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "serial-number" }, [
+                      _vm._v(" ~~~ 01")
+                    ])
+                  ])
+                ])
+              ]
+            )
+          }),
+          0
+        )
+      ])
+    ]
   )
 }
 var staticRenderFns = [
@@ -24402,163 +24411,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "sec-title3 text-center mb-45 md-mb-30" }, [
-        _c("span", { staticClass: "sub-title" }, [
-          _vm._v("~ "),
-          _c("span", { staticClass: "title-upper" }, [_vm._v("Our Services")]),
-          _vm._v(" ~")
-        ]),
-        _vm._v(" "),
-        _c("h2", { staticClass: "title title3" }, [
-          _vm._v("Introduce Best SEO Services For Your Business")
-        ])
+    return _c("div", { staticClass: "sec-title3 text-center mb-45 md-mb-30" }, [
+      _c("span", { staticClass: "sub-title" }, [
+        _vm._v("~ "),
+        _c("span", { staticClass: "title-upper" }, [_vm._v("Our Services")]),
+        _vm._v(" ~")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-lg-4 col-md-6 mb-25" }, [
-          _c("div", { staticClass: "services-wrap" }, [
-            _c("div", { staticClass: "icon-part" }, [
-              _c("i", { staticClass: "fa fa-bar-chart" })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "services-txt" }, [
-              _c("h4", { staticClass: "services-title" }, [
-                _c("a", { attrs: { href: "services-single.html" } }, [
-                  _vm._v("Product Design")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "services-txt" }, [
-                _vm._v(
-                  "Podcasting operational change manaent inside of Workflows."
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "serial-number" }, [_vm._v(" ~~~ 01")])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-4 col-md-6 mb-25" }, [
-          _c("div", { staticClass: "services-wrap" }, [
-            _c("div", { staticClass: "icon-part" }, [
-              _c("i", { staticClass: "fa fa-puzzle-piece" })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "services-txt" }, [
-              _c("h4", { staticClass: "services-title" }, [
-                _c("a", { attrs: { href: "services-single.html" } }, [
-                  _vm._v("Digital Product")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "services-txt" }, [
-                _vm._v(
-                  "Podcasting operational change manaent inside of Workflows."
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "serial-number" }, [_vm._v(" ~~~ 02")])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-4 col-md-6 mb-25" }, [
-          _c("div", { staticClass: "services-wrap" }, [
-            _c("div", { staticClass: "icon-part" }, [
-              _c("i", { staticClass: "fa fa-envelope-o" })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "services-txt" }, [
-              _c("h4", { staticClass: "services-title" }, [
-                _c("a", { attrs: { href: "services-single.html" } }, [
-                  _vm._v("Email Marketing")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "services-txt" }, [
-                _vm._v(
-                  "Podcasting operational change manaent inside of Workflows."
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "serial-number" }, [_vm._v(" ~~~ 03")])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-4 col-md-6 md-mb-25" }, [
-          _c("div", { staticClass: "services-wrap" }, [
-            _c("div", { staticClass: "icon-part" }, [
-              _c("i", { staticClass: "fa fa-sitemap" })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "services-txt" }, [
-              _c("h4", { staticClass: "services-title" }, [
-                _c("a", { attrs: { href: "services-single.html" } }, [
-                  _vm._v("Social Media Marketing")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "services-txt" }, [
-                _vm._v(
-                  "Podcasting operational change manaent inside of Workflows."
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "serial-number" }, [_vm._v(" ~~~ 04")])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-4 col-md-6 sm-mb-25" }, [
-          _c("div", { staticClass: "services-wrap" }, [
-            _c("div", { staticClass: "icon-part" }, [
-              _c("i", { staticClass: "fa fa-codepen" })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "services-txt" }, [
-              _c("h4", { staticClass: "services-title" }, [
-                _c("a", { attrs: { href: "services-single.html" } }, [
-                  _vm._v("Search Engine Optimize")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "services-txt" }, [
-                _vm._v(
-                  "Podcasting operational change manaent inside of Workflows."
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "serial-number" }, [_vm._v(" ~~~ 05")])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-4 col-md-6" }, [
-          _c("div", { staticClass: "services-wrap" }, [
-            _c("div", { staticClass: "icon-part" }, [
-              _c("i", { staticClass: "fa fa-yelp" })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "services-txt" }, [
-              _c("h4", { staticClass: "services-title" }, [
-                _c("a", { attrs: { href: "services-single.html" } }, [
-                  _vm._v("Local Search Strategy")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "services-txt" }, [
-                _vm._v(
-                  "Podcasting operational change manaent inside of Workflows."
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "serial-number" }, [_vm._v(" ~~~ 06")])
-            ])
-          ])
-        ])
+      _c("h2", { staticClass: "title title3" }, [
+        _vm._v("Introduce Best SEO Services For Your Business")
       ])
     ])
   }

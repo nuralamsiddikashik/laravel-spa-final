@@ -11,18 +11,26 @@
 					<div class="col-md-6 offset-md-3">
 						<div class="card shadow mb-4">
 							<div class="card-header py-3">
-								<h6 class="m-0 font-weight-bold text-primary">Category List</h6>
+								<div class="d-flex justify-content-between align-items-center">
+									<h6 class="m-0 font-weight-bold text-primary card-title">Category List</h6>
+									<router-link
+										to="/app/create"
+										class="btn btn-primary"
+									>Create Category</router-link>
+								</div>
 							</div>
 							<div class="card-body">
 								<table class="table table-bordered dataTable">
 									<thead>
 										<tr>
-											<th><input
+											<th>
+												<input
 													type="checkbox"
 													:disabled="!categories.length"
 													v-model="selectedAll"
 													@click="selectCategoryItem"
-												></th>
+												>
+											</th>
 											<th>SL</th>
 											<th>Category Name</th>
 											<th>Category Slug</th>
@@ -35,7 +43,7 @@
 											v-for="(category,index) in categories"
 											:key="index"
 										>
-											<td><input
+											<td> <input
 													type="checkbox"
 													:value="category.id"
 													v-model="selected"
@@ -108,6 +116,7 @@ export default {
 	},
 	data() {
 		return {
+			categories: [],
 			selected: [],
 			isSelected: false,
 			selectedAll: false
@@ -116,11 +125,16 @@ export default {
 	methods: {
 		deleteCategory(id) {
 			axios.delete("/api/app/category-delete/" + id).then(response => {
-				this.$store.dispatch("getCategories");
+				this.getCategoryList();
 				this.$toast.success({
 					title: "Success",
 					message: "Category delete success"
 				});
+			});
+		},
+		getCategoryList() {
+			axios.get("/api/app/category-list").then(response => {
+				this.categories = response.data.categories;
 			});
 		},
 		selectCategoryItem(event) {
@@ -141,7 +155,7 @@ export default {
 					(this.selected = []),
 						(this.isSelected = false),
 						(this.selectedAll = false);
-					this.$store.dispatch("getCategories");
+					this.getCategoryList();
 					this.$toast.success({
 						title: "Success",
 						message: "Category delete success"
@@ -152,19 +166,14 @@ export default {
 				});
 		}
 	},
-	mounted() {
-		this.$store.dispatch("getCategories");
-	},
 	watch: {
 		selected(selected) {
 			this.isSelected = selected.length > 0;
 			this.selectedAll = selected.length === this.categories.length;
 		}
 	},
-	computed: {
-		categories() {
-			return this.$store.getters.categories;
-		}
+	mounted() {
+		this.getCategoryList();
 	}
 };
 </script>

@@ -1,4 +1,5 @@
 <template>
+
 	<div id="wrapper">
 		<Sidebar />
 		<div
@@ -8,40 +9,38 @@
 			<div id="content">
 				<Header />
 				<div class="container-fluid">
-					<div class="col-md-8 offset-md-2">
+					<div class="col-md-7 offset-md-2">
 						<div class="card shadow mb-4">
 							<div class="card-header py-3">
-								<h6 class="m-0 font-weight-bold text-primary">Category List</h6>
+								<h6 class="m-0 font-weight-bold text-primary">Service List</h6>
 							</div>
 							<div class="card-body">
 								<table class="table table-bordered dataTable">
 									<thead>
 										<tr>
 											<th>SL</th>
-											<th>Contact Name</th>
-											<th>Contact Email</th>
-											<th>Contact Phone</th>
-											<th>Website</th>
-											<th>Message</th>
+											<th>Service title</th>
+											<th>Service Description</th>
+											<th>Service Icon</th>
+											<th>Service Number</th>
 											<th>Edit</th>
 											<th>Remove</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr
-											v-for="(contact,index) in contactListShow"
+											v-for="(serviceData,index) in mainservices"
 											:key="index"
 										>
 											<td>{{++index}}</td>
-											<td>{{contact.name}}</td>
-											<td>{{contact.email}}</td>
-											<td>{{contact.phone}}</td>
-											<td>{{contact.website}}</td>
-											<td>{{contact.message}}</td>
+											<td>{{serviceData.services_title}}</td>
+											<td>{{serviceData.services_description}}</td>
+											<td>{{serviceData.services_icon}}</td>
+											<td>{{serviceData.services_number}}</td>
 											<td>
 												Edit
 											</td>
-											<td>Delete</td>
+											<td>Remove</td>
 										</tr>
 									</tbody>
 								</table>
@@ -58,25 +57,30 @@
 import Header from "../../components/Header.vue";
 import Sidebar from "../../components/Sidebar.vue";
 export default {
-	name: "contact-list",
+	name: "services-list",
 	components: {
 		Header,
 		Sidebar
 	},
 	data() {
 		return {
-			contactListShow: []
+			mainservices: []
 		};
 	},
 	methods: {
-		getContactList() {
-			axios.get("/api/app/contact-list").then(response => {
-				this.contactListShow = response.data.contacts;
-			});
+		getServicesList() {
+			axios
+				.get("/api/app/get-services-list")
+				.then(response => {
+					this.mainservices = response.data.mainservices;
+				})
+				.catch(error => {
+					console.log(error.message);
+				});
 		}
 	},
 	mounted() {
-		this.getContactList();
+		this.getServicesList();
 	}
 };
 </script>

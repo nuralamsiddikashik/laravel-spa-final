@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class ServiceController extends Controller {
+
+    public function index() {
+        $serviceList = Service::get( ['id', 'services_title', 'services_description', 'services_number', 'services_icon'] );
+        return response()->json( ['mainservices' => $serviceList], 200 );
+    }
+
     public function addToService( Request $request ) {
         try {
             $this->validate( $request, [

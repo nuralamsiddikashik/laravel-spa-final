@@ -39,6 +39,7 @@ Route::middleware( ['auth:sanctum'] )->group( function () {
     Route::delete( '/app/service-delete/{id}', [FserviceController::class, 'serviceDelete'] )->name( 'service.delete' );
 
     // Service Route
+    Route::get( '/app/get-services-list', [ServiceController::class, 'index'] )->name( 'services.lists' );
     Route::post( '/app/add-service-two', [ServiceController::class, 'addToService'] )->name( 'service.two.add' );
 
     // About
@@ -54,4 +55,5 @@ Route::post( 'logout', [LoginController::class, 'logout'] )->middleware( 'auth:s
 // Public Controller
 Route::post( '/add-contact', [ContactController::class, 'addContact'] )->name( 'add.contact' );
 Route::get( 'service-list', [HomeController::class, 'showServiceList'] )->name( 'front.service.list' );
+// Route::get( 'search', [HomeController::class, 'search'] );
 // Route::get( 'about-list', [HomeController::class, 'showAboutList'] )->name( 'front.about.list' );

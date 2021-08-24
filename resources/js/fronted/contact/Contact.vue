@@ -32,6 +32,7 @@
 												>
 											</div>
 										</div>
+
 										<div class="col-md-6 mb-30">
 											<div class="common-control form-group mb-0">
 												<input
@@ -165,6 +166,7 @@ export default {
 				});
 			});
 		},
+
 		resetContact() {
 			this.formData = {
 				name: "",

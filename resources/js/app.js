@@ -1,8 +1,7 @@
 require('./bootstrap');
 import Vue from 'vue';
 import routes from './router/index';
-import Vuex from 'vuex'
-Vue.use(Vuex)
+
 
 // Use to alert system toastr 
 import CxltToastr from 'cxlt-vue2-toastr'
@@ -17,12 +16,7 @@ var toastrConfigs = {
 }
 Vue.use(CxltToastr, toastrConfigs)
 
-// Vuex use 
 
-import storeData from './store/store.js'; 
-const store = new Vuex.Store(
-    storeData
-);
 
 // Auth system code 
 function loggedIn(){
@@ -55,6 +49,5 @@ routes.beforeEach((to, from, next) => {
 const app = new Vue({
     el: '#app', 
     router:routes,
-    store
-
+ 
 });

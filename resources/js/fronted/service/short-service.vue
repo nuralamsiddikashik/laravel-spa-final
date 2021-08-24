@@ -1,6 +1,7 @@
 <template>
 	<div class="rs-services style15 pt-100 md-pt-70">
 		<div class="container">
+
 			<div class="row">
 				<div
 					class="col-lg-4 col-md-4 sm-mb-20"
@@ -25,6 +26,7 @@
 				</div>
 
 			</div>
+
 		</div>
 	</div>
 </template>
@@ -32,7 +34,9 @@
 import axios from "axios";
 import ServiceImage from "../../../../public/fronted/img/1.png";
 import ServiceShape from "../../../../public/fronted/img/service-shape.png";
+import Contact from "../contact/Contact.vue";
 export default {
+	components: { Contact },
 	name: "ShortService",
 	data: () => ({
 		ServiceImage,

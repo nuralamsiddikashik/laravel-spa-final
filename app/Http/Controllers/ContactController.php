@@ -3,13 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class ContactController extends Controller {
 
     public function showContactList() {
+        // $selectFields    = ['id', 'category_id', 'name', 'email', 'phone', 'website', 'message'];
+        // $contactListShow = Contact::select( $selectFields )->with( ['category' => function ( $category ) {
+        //     $category->select( 'id', 'cat_name' );
+        // }] )->get();
+
         $contactListShow = Contact::get( ['id', 'name', 'email', 'phone', 'website', 'message'] );
-        return response()->json( $contactListShow, 200 );
+        return response()->json( ['contacts' => $contactListShow, 200] );
     }
 
     public function addContact( Request $request ) {
