@@ -52,6 +52,7 @@
     <!-- This stylesheet dynamically changed from style.less -->
     <!-- responsive css -->
     <link rel="stylesheet" type="text/css" href="{{asset('fronted/css/responsive.css')}}">
+
 </head>
 
 <body class="home-five">

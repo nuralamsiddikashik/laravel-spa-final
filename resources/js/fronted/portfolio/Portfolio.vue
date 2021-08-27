@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<Header />
+		<Preloader />
 		<div class="main-content">
 			<div
 				class="rs-breadcrumbs bg-6"
@@ -203,11 +204,13 @@ import Header from "../Header.vue";
 import Footer from "../footer/Footer.vue";
 import PortfolioImage from "../../../../public/fronted/img/2.jpg";
 import BreadcrumbImage from "../../../../public/fronted/img/6.jpg";
+import Preloader from "../../components/preloader.vue";
 export default {
 	name: "Portfolio",
 	components: {
 		Header,
-		Footer
+		Footer,
+		Preloader
 	},
 	data: () => ({
 		PortfolioImage,

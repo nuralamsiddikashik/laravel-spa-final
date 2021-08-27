@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<Header />
+		<Preloader />
 		<div class="main-content">
 			<Banner />
 			<ShortService />
@@ -21,6 +22,7 @@ import Counter from "./fronted/counter/counter.vue";
 import ServiceTwo from "./fronted/service/service-two.vue";
 import HomeAbout from "./fronted/about/HomeAbout.vue";
 import Footer from "./fronted/footer/Footer.vue";
+import Preloader from "../.././resources/js/components/preloader.vue";
 export default {
 	components: {
 		Header,
@@ -29,7 +31,8 @@ export default {
 		ServiceTwo,
 		Counter,
 		HomeAbout,
-		Footer
+		Footer,
+		Preloader
 	}
 };
 </script>
