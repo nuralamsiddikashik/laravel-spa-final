@@ -17,6 +17,7 @@ import addAbout from '../pages/about/about.vue';
 // Services Component 
 import CreateService from '../pages/services/add.vue'; 
 import ServicesList from '../pages/services/services.vue'; 
+import EditServicesSingleItem from '../pages/services/editServices.vue';
 // Frontend contact list show 
 import ContactListShow from '../pages/contact/contactList.vue';
 
@@ -101,6 +102,12 @@ const routes = new VueRouter({
             name: "services-list",
             meta: {requiresAuth: true}
         }, 
+        {
+            path:'/app/edit-services/:id', 
+            component: EditServicesSingleItem,
+            name: "edit-services", 
+            meta: {requiresAuth: true}
+        },
 
     ]
 });

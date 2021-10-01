@@ -38,7 +38,10 @@
 											<td>{{serviceData.services_icon}}</td>
 											<td>{{serviceData.services_number}}</td>
 											<td>
-												Edit
+												<router-link
+													:to="{name: 'edit-services', params: {id: serviceData.id}}"
+													class="btn btn-primary btn-sm"
+												>Edit</router-link>
 											</td>
 											<td>Remove</td>
 										</tr>

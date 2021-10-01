@@ -39,9 +39,9 @@ Route::middleware( ['auth:sanctum'] )->group( function () {
     Route::delete( '/app/service-delete/{id}', [FserviceController::class, 'serviceDelete'] )->name( 'service.delete' );
 
     // Service Route
-    Route::get( '/app/get-services-list', [ServiceController::class, 'index'] )->name( 'services.lists' );
     Route::post( '/app/add-service-two', [ServiceController::class, 'addToService'] )->name( 'service.two.add' );
-
+    Route::get( '/app/get-services-list', [ServiceController::class, 'index'] )->name( 'services.lists' );
+    Route::get( '/app/edit-services/{id}', [ServiceController::class, 'editServicesItems'] )->name( 'service.item.edit' );
     // About
     Route::get( '/app/about-list', [AboutController::class, 'addAboutList'] )->name( 'about.list' );
     Route::post( '/app/update-about', [AboutController::class, 'addToAbout'] )->name( 'about.store' );

@@ -26,7 +26,7 @@
 									</thead>
 									<tbody>
 										<tr
-											v-for="(service,index) in services"
+											v-for="(service,index) in shortservice"
 											:key="index"
 										>
 											<td>{{++index}}</td>
@@ -63,7 +63,22 @@ export default {
 		Header,
 		Sidebar
 	},
+	data() {
+		return {
+			shortservice: []
+		};
+	},
 	methods: {
+		getShortServicesList() {
+			axios
+				.get("/api/app/service-list")
+				.then(response => {
+					this.shortservice = response.data.shortservice;
+				})
+				.catch(error => {
+					console.log(error.message);
+				});
+		},
 		deleteService(id) {
 			axios.delete("/api/app/service-delete/" + id).then(response => {
 				this.$store.dispatch("getServices");
@@ -71,13 +86,9 @@ export default {
 			});
 		}
 	},
-	computed: {
-		services() {
-			return this.$store.getters.services;
-		}
-	},
+
 	mounted() {
-		this.$store.dispatch("getServices");
+		this.getShortServicesList();
 	}
 };
 </script>

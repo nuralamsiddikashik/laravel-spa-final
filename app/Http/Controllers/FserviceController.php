@@ -12,7 +12,7 @@ class FserviceController extends Controller {
 
     public function showServiceListForHome() {
         $showServiceList = Fservice::get( ['id', 'service_title', 'service_description'] );
-        return response()->json( ['services' => $showServiceList, 200] );
+        return response()->json( ['shortservice' => $showServiceList, 200] );
     }
 
     public function addServiceForHomePage( Request $request ) {

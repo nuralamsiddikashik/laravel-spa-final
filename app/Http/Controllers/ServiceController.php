@@ -36,4 +36,9 @@ class ServiceController extends Controller {
             return response()->json( [], 406 );
         }
     }
+
+    public function editServicesItems( $id ) {
+        $editServicesListItems = Service::findOrFail( $id );
+        return response()->json( $editServicesListItems );
+    }
 }
